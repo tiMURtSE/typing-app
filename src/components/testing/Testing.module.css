@@ -1,0 +1,13 @@
+.passed {
+    color: green;
+}
+
+.current {
+    background: green;
+    color: #fff;
+}
+
+.incorrect {
+    background: red;
+    color: #fff;
+}

@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
 import './styles/App.css';
-import Window from './components/window/Window';
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from './pages/SharedLayout';
+import Menu from './pages/Menu';
+import Testing from './components/testing/Testing';
+import { useKeyDown } from './utilities/useKeyDown';
 
 const App = () => {
-    const [text, setText] = useState("");
 
-    function enterText() {
-        const text = prompt("Введите текст", "");
-
-        setText(text);
-    }
 
     return (
         <div className='App'>
-            <Window>{text}</Window>
-
-            <button onClick={enterText} type='button'>Ввести текст</button>
+            <Routes>
+                <Route path='/' element={<SharedLayout/>}>
+                    <Route index element={<Menu/>}/>
+                    <Route path='testing' element={<Testing/>}/>
+                </Route>
+            </Routes>
         </div>
     );
 };

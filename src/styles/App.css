@@ -15,3 +15,17 @@ body {
     max-width: 1000px;
     margin: 0 auto;
 }
+
+.passed {
+    color: green;
+}
+
+.current {
+    background: green;
+    color: #fff;
+}
+
+.incorrect {
+    background: red;
+    color: #fff;
+}
