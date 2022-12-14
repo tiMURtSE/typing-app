@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;800&display=swap');
+
 *, 
 *::before,
 *::after {
@@ -6,9 +8,28 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+:root {
+    --main-coloor: cornflowerblue;
+}
+
 body {
     height: 100vh;
-    background-color: cornflowerblue;
+    
+    font-family: 'Source Code Pro', monospace;
+    font-size: 26px;
+    font-weight: 600;
+    background-color: var(--main-coloor);
 }
 
 .App {
@@ -28,4 +49,16 @@ body {
 .incorrect {
     background: red;
     color: #fff;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 20px;
+    padding: 20px 0;
+}
+
+.nav__link:hover {
+    text-decoration: 3px solid underline;
 }

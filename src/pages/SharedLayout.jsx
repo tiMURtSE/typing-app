@@ -4,9 +4,9 @@ import { NavLink, Outlet } from 'react-router-dom';
 const SharedLayout = () => {
     return (
         <div>
-            <nav>
-                <NavLink to='/'>Меню</NavLink>
-                <NavLink to='/testing'>Тестирование</NavLink>
+            <nav className='nav'>
+                <NavLink to='/' className='nav__link'>Меню</NavLink>
+                <NavLink to='/testing' className='nav__link'>Тестирование</NavLink>
             </nav>
 
             <Outlet/>
