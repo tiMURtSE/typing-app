@@ -1,7 +1,7 @@
 import React from 'react';
 import Letter from '../letter/Letter';
 
-const Text = ({text, state}) => {
+const Text = ({text, state, isIncorrect}) => {
     
     return (
         <div>
@@ -9,7 +9,7 @@ const Text = ({text, state}) => {
                 if (index < state) {
                     return <Letter className='passed' key={index}>{letter}</Letter>;
                 } else if (index === state) {
-                    return <Letter className='current' key={index}>{letter}</Letter>;
+                    return <Letter className={isIncorrect ? 'incorrect' : 'current'} key={index}>{letter}</Letter>;
                 } else {
                     return <Letter key={index}>{letter}</Letter>;
                 }
