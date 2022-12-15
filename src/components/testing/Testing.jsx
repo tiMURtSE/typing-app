@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { texts } from '../../data/texts';
 import Modal from '../modal/Modal';
 import Text from '../text/Text';
@@ -9,14 +9,18 @@ const Testing = () => {
     const text = texts[0].split("");
     const [modal, setModal] = useState({isStart: true, isDisplayed: true});
     const [state, setState] = useState(0);
-    const timer = {isStarted: false, startTime: null, endTime: null};
+    const ref = useRef(false);
 
     useEffect(() => {
+        // проверяет, навешен ли слушатель событий. предотвращает повторное добавление слушателя
+        if (ref.current) return;
+
         const onKeyDown = (event) => {
             const span = document.querySelector(".current");
-    
+
             if (span.textContent === event.key) {
-                console.log(state)
+                ref.current = false;
+                document.removeEventListener('keydown', onKeyDown);
                 setState(state + 1);
             }
     
@@ -25,14 +29,17 @@ const Testing = () => {
                 document.removeEventListener('keydown', onKeyDown);
             }
         };
-        document.removeEventListener('keydown', onKeyDown);
-
-        document.addEventListener('keydown', onKeyDown);
+        
+        // условие для предотвращения навешивания слушателя после прохождения теста
+        if (modal.isStart) {
+            ref.current = true;
+            document.addEventListener('keydown', onKeyDown);
+        }
     }, [state]);
 
     return (
         <div>
-            <Modal modal={modal} setModal={setModal} timer={timer}/>
+            <Modal modal={modal} setModal={setModal} />
 
             <Window>
                 <Text text={text} state={state}/>

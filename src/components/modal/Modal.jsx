@@ -22,7 +22,7 @@ const Modal = ({modal, setModal, timer}) => {
                     {(modal.isStart) ? (
                         "Готовы?"
                     ) : (
-                        Math.floor(timer.endTime - timer.startTime / 1000)
+                        "Конец"
                     )}
                 </span>
                 <Button onClick={clickFunction}>OK!</Button>
