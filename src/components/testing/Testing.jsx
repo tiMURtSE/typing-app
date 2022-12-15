@@ -12,6 +12,7 @@ const Testing = () => {
     const [state, setState] = useState(0);
     const hasEventListener = useRef(false);
     const timer = useRef({startTime: null, endTime: null});
+    const [mistakes, setMistakes] = useState({mistakeState: 0, quantity: 0});
     const setTimer = (option) => {
         const {startTime} = timer.current;
 
@@ -22,16 +23,14 @@ const Testing = () => {
             timer.current.endTime = Date.now();
         }
     };
-    // const [isIncorrect, setIsIncorrect] = useState(false);
-    // console.log(isIncorrect)
 
     useEffect(() => {
         // проверяет, навешен ли слушатель событий. предотвращает повторное добавление слушателя
         if (hasEventListener.current) return;
 
         const onKeyDown = (event) => {
-            const span = document.querySelector('.current');
-
+            const span = document.querySelector(`.letter:nth-of-type(${state + 1})`);
+            
             if (!isRegularKey(event.code)) return;
 
             if (span.textContent === event.key) {
@@ -39,8 +38,13 @@ const Testing = () => {
                 document.removeEventListener('keydown', onKeyDown);
                 setState(state + 1);
                 setTimer('start');
-            } else {
-                // setIsIncorrect(true);
+                console.log(mistakes)
+                setMistakes({mistakeState: state, quantity: mistakes.quantity});
+            } else if (mistakes.mistakeState !== state) {
+                setMistakes({mistakeState: state, quantity: mistakes.quantity + 1});
+                setTimeout(() => {
+                    console.log("opa")
+                }, 2000);
             }
     
             if (!span.nextElementSibling) {
@@ -52,7 +56,6 @@ const Testing = () => {
         
         // условие для предотвращения навешивания слушателя после прохождения теста
         if (modal.isStart) {
-            console.log('1')
             hasEventListener.current = true;
             document.addEventListener('keydown', onKeyDown);
         }
@@ -62,10 +65,10 @@ const Testing = () => {
 
     return (
         <div>
-            <Modal modal={modal} setModal={setModal} timer={timer} text={text}/>
+            <Modal modal={modal} setModal={setModal} timer={timer} text={text} mistakes={mistakes}/>
 
             <Window>
-                { <Text text={text} state={state}/> }
+                <Text text={text} state={state} mistakes={mistakes}/>
             </Window>
 
             <Button onClick={() => setState(state + 1)} style={{backgroundColor: '#fff'}}>Пропуск буквы</Button>
