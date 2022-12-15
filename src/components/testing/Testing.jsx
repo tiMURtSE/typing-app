@@ -6,10 +6,11 @@ import Button from '../UI/button/Button';
 import Window from '../window/Window';
 
 const Testing = () => {
-    const text = texts[0].split("");
+    const text = texts[1].split("");
     const [modal, setModal] = useState({isStart: true, isDisplayed: true});
     const [state, setState] = useState(0);
     const ref = useRef(false);
+    const timer = useRef({startTime: null, endTime: null});
 
     useEffect(() => {
         // проверяет, навешен ли слушатель событий. предотвращает повторное добавление слушателя
@@ -22,11 +23,15 @@ const Testing = () => {
                 ref.current = false;
                 document.removeEventListener('keydown', onKeyDown);
                 setState(state + 1);
+                if (!timer.current.startTime) {
+                    timer.current.startTime = Date.now();
+                }
             }
     
             if (!span.nextElementSibling) {
                 setModal({isStart: false, isDisplayed: true});
                 document.removeEventListener('keydown', onKeyDown);
+                timer.current.endTime = Date.now();
             }
         };
         
@@ -39,7 +44,7 @@ const Testing = () => {
 
     return (
         <div>
-            <Modal modal={modal} setModal={setModal} />
+            <Modal modal={modal} setModal={setModal} timer={timer} text={text}/>
 
             <Window>
                 <Text text={text} state={state}/>

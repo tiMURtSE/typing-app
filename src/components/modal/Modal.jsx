@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/button/Button';
 import classes from './Modal.module.css';
 
-const Modal = ({modal, setModal, timer}) => {
+const Modal = ({modal, setModal, timer, text}) => {
     const route = useNavigate();
     const clickFunction = () => {
         if (modal.isStart) {
@@ -15,16 +14,19 @@ const Modal = ({modal, setModal, timer}) => {
 
     if (!modal.isDisplayed) return;
 
+    const time = +((timer.current.endTime - timer.current.startTime) / 1000 / 60).toFixed(3);
+    const symbolsPerMinute = Math.round(text.length / time);
+
     return (
         <div className={classes.modal}>
             <div className={classes.alert}>
-                <span>
                     {(modal.isStart) ? (
-                        "Готовы?"
+                        <span>Готовы?</span>
                     ) : (
-                        "Конец"
+                        <div>
+                            Символов в минуту: {symbolsPerMinute}
+                        </div>
                     )}
-                </span>
                 <Button onClick={clickFunction}>OK!</Button>
             </div>
         </div>
