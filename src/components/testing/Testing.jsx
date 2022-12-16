@@ -24,36 +24,46 @@ const Testing = () => {
         }
     };
 
+    const onKeyDown = (event) => {
+        const span = document.querySelector(`.letter:nth-of-type(${state + 1})`);
+        
+        if (!isRegularKey(event.code)) return;
+
+        if (span.textContent === event.key) {
+            hasEventListener.current = false;
+            document.removeEventListener('keydown', onKeyDown);
+            setState(state + 1);
+            setTimer('start');
+            setMistakes(prev => ({...prev, isMistake: false}));
+        } else {
+            setMistakes({isMistake: true, number: mistakes.number + 1});
+        }
+
+        if (!span.nextElementSibling && span.textContent === event.key) {
+            setModal({isStart: false, isDisplayed: true});
+            document.removeEventListener('keydown', onKeyDown);
+            setTimer('end');
+        }
+    };
+
+    useEffect(() => {
+        if (hasEventListener.current) {
+            return () => {
+                document.removeEventListener('keydown', onKeyDown);
+                console.log('nety')
+            }
+        }
+    }, []);
+
     useEffect(() => {
         // проверяет, навешен ли слушатель событий. предотвращает повторное добавление слушателя
         if (hasEventListener.current) return;
 
-        const onKeyDown = (event) => {
-            const span = document.querySelector(`.letter:nth-of-type(${state + 1})`);
-            
-            if (!isRegularKey(event.code)) return;
-
-            if (span.textContent === event.key) {
-                hasEventListener.current = false;
-                document.removeEventListener('keydown', onKeyDown);
-                setState(state + 1);
-                setTimer('start');
-                setMistakes(prev => ({...prev, isMistake: false}));
-            } else {
-                setMistakes({isMistake: true, number: mistakes.number + 1});
-            }
-    
-            if (!span.nextElementSibling && span.textContent === event.key) {
-                setModal({isStart: false, isDisplayed: true});
-                document.removeEventListener('keydown', onKeyDown);
-                setTimer('end');
-            }
-        };
-        
         // условие для предотвращения навешивания слушателя после прохождения теста
         if (modal.isStart) {
             hasEventListener.current = true;
             document.addEventListener('keydown', onKeyDown);
+            console.log('est')
         }
 
     }, [state]);
