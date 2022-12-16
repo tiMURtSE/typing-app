@@ -14,7 +14,7 @@ const Modal = ({modal, setModal, timer, text, mistakes}) => {
 
     if (!modal.isDisplayed) return;
 
-    const accuracy = +((text.length - mistakes.quantity) / text.length).toFixed(1);
+    const accuracy = +((text.length - mistakes.number) / text.length * 100).toFixed(2);
     const time = +((timer.current.endTime - timer.current.startTime) / 1000 / 60).toFixed(3);
     const symbolsPerMinute = Math.round(text.length / time);
 
@@ -25,9 +25,8 @@ const Modal = ({modal, setModal, timer, text, mistakes}) => {
                         <span>Готовы?</span>
                     ) : (
                         <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <span>Символов в минуту: {symbolsPerMinute}</span>
-                            <span>Процент точности: {accuracy}</span>
-
+                            <span>Символов в минуту: <b>{symbolsPerMinute}</b> сим./м.</span>
+                            <span>Процент точности: <b>{accuracy}</b> %</span>
                         </div>
                     )}
                 <Button onClick={clickFunction}>OK!</Button>

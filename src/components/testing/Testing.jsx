@@ -12,7 +12,7 @@ const Testing = () => {
     const [state, setState] = useState(0);
     const hasEventListener = useRef(false);
     const timer = useRef({startTime: null, endTime: null});
-    const [mistakes, setMistakes] = useState({mistakeState: 0, quantity: 0});
+    const [mistakes, setMistakes] = useState({isMistake: false, number: 0});
     const setTimer = (option) => {
         const {startTime} = timer.current;
 
@@ -38,16 +38,12 @@ const Testing = () => {
                 document.removeEventListener('keydown', onKeyDown);
                 setState(state + 1);
                 setTimer('start');
-                console.log(mistakes)
-                setMistakes({mistakeState: state, quantity: mistakes.quantity});
-            } else if (mistakes.mistakeState !== state) {
-                setMistakes({mistakeState: state, quantity: mistakes.quantity + 1});
-                setTimeout(() => {
-                    console.log("opa")
-                }, 2000);
+                setMistakes(prev => ({...prev, isMistake: false}));
+            } else {
+                setMistakes({isMistake: true, number: mistakes.number + 1});
             }
     
-            if (!span.nextElementSibling) {
+            if (!span.nextElementSibling && span.textContent === event.key) {
                 setModal({isStart: false, isDisplayed: true});
                 document.removeEventListener('keydown', onKeyDown);
                 setTimer('end');
@@ -61,7 +57,6 @@ const Testing = () => {
         }
 
     }, [state]);
-
 
     return (
         <div>
