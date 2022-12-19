@@ -7,7 +7,7 @@ import Button from '../UI/button/Button';
 import Window from '../window/Window';
 
 const Testing = () => {
-    const text = texts[1].split("");
+    const text = texts[0].split("");
     const [modal, setModal] = useState({isStart: true, isDisplayed: true});
     const [state, setState] = useState(0);
     const hasEventListener = useRef(false);
@@ -47,15 +47,6 @@ const Testing = () => {
     };
 
     useEffect(() => {
-        if (hasEventListener.current) {
-            return () => {
-                document.removeEventListener('keydown', onKeyDown);
-                console.log('nety')
-            }
-        }
-    }, []);
-
-    useEffect(() => {
         // проверяет, навешен ли слушатель событий. предотвращает повторное добавление слушателя
         if (hasEventListener.current) return;
 
@@ -63,7 +54,6 @@ const Testing = () => {
         if (modal.isStart) {
             hasEventListener.current = true;
             document.addEventListener('keydown', onKeyDown);
-            console.log('est')
         }
 
     }, [state]);

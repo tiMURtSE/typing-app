@@ -12,6 +12,10 @@
     background-color: rgb(0 0 0 / 0.5);
 }
 
+.modal-active {
+    
+}
+
 .alert {
     display: flex;
     flex-direction: column;

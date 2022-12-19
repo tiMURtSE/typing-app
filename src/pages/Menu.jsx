@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Modal from '../components/modal/Modal';
 
 const Menu = () => {
     const [textModal, setTextModal] = useState(false);
@@ -10,9 +11,7 @@ const Menu = () => {
         <div>
             {
                 (textModal) && (
-                    <div>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
-                    </div>
+                    <Modal option='edit'/>
                 )
             }
 

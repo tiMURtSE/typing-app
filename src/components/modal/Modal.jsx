@@ -1,35 +1,22 @@
 import { useNavigate } from 'react-router-dom';
+import Statstics from '../statistics/Statistics';
 import Button from '../UI/button/Button';
 import classes from './Modal.module.css';
 
-const Modal = ({modal, setModal, timer, text, mistakes}) => {
-    const route = useNavigate();
-    const clickFunction = () => {
-        if (modal.isStart) {
-            setModal({...modal, isDisplayed: false});
-        } else {
-            route("/");
-        }
-    };
-
+const Modal = ({modal, setModal, timer, text, mistakes, option}) => {
     if (!modal.isDisplayed) return;
-
-    const accuracy = +((text.length - mistakes.number) / text.length * 100).toFixed(2);
-    const time = +((timer.current.endTime - timer.current.startTime) / 1000 / 60).toFixed(3);
-    const symbolsPerMinute = Math.round(text.length / time);
 
     return (
         <div className={classes.modal}>
             <div className={classes.alert}>
                     {(modal.isStart) ? (
-                        <span>Готовы?</span>
-                    ) : (
-                        <div style={{display: 'flex', flexDirection: 'column'}}>
-                            <span>Символов в минуту: <b>{symbolsPerMinute}</b> сим./м.</span>
-                            <span>Процент точности: <b>{accuracy}</b> %</span>
+                        <div>
+                            <div>Готовы?</div>
+                            <Button onClick={() => setModal({...modal, isDisplayed: false})}>OK!</Button>
                         </div>
+                    ) : (
+                        <Statstics text={text} mistakes={mistakes} timer={timer}/>
                     )}
-                <Button onClick={clickFunction}>OK!</Button>
             </div>
         </div>
     );
