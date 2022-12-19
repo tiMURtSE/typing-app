@@ -2,12 +2,12 @@ import React from 'react';
 import Letter from '../letter/Letter';
 
 const Text = ({text, state, mistakes}) => {
-
+    const splittedText = text.split('');
     const currentClass = 'letter ' + (mistakes.isMistake ? 'incorrect' : 'current');
     
     return (
         <div>
-            {text.map((letter, index) => {
+            {splittedText.map((letter, index) => {
                 if (index < state) {
                     return <Letter className='letter passed' key={index}>{letter}</Letter>;
                 } else if (index === state) {

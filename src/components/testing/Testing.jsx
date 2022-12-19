@@ -7,22 +7,13 @@ import Button from '../UI/button/Button';
 import Window from '../window/Window';
 
 const Testing = () => {
-    const text = texts[0].split("");
-    const [modal, setModal] = useState({isStart: true, isDisplayed: true});
+    const text = texts[1];
     const [state, setState] = useState(0);
+    const [visible, setVisible] = useState(true);
+    const [modalOption, setModalOption] = useState('prepare');
     const hasEventListener = useRef(false);
-    const timer = useRef({startTime: null, endTime: null});
+    const [timer, setTimer] = useState({startTime: null, endTime: null});
     const [mistakes, setMistakes] = useState({isMistake: false, number: 0});
-    const setTimer = (option) => {
-        const {startTime} = timer.current;
-
-        if (option === 'start') {
-            if (startTime) return;
-            timer.current.startTime = Date.now();
-        } else if (option === 'end') {
-            timer.current.endTime = Date.now();
-        }
-    };
 
     const onKeyDown = (event) => {
         const span = document.querySelector(`.letter:nth-of-type(${state + 1})`);
@@ -33,16 +24,19 @@ const Testing = () => {
             hasEventListener.current = false;
             document.removeEventListener('keydown', onKeyDown);
             setState(state + 1);
-            setTimer('start');
             setMistakes(prev => ({...prev, isMistake: false}));
+            if (!timer.startTime) {
+                setTimer({...timer, startTime: Date.now()});
+            }
         } else {
             setMistakes({isMistake: true, number: mistakes.number + 1});
         }
 
         if (!span.nextElementSibling && span.textContent === event.key) {
-            setModal({isStart: false, isDisplayed: true});
+            setVisible(true);
+            setModalOption('result');
             document.removeEventListener('keydown', onKeyDown);
-            setTimer('end');
+            setTimer({...timer, endTime: Date.now()});
         }
     };
 
@@ -51,7 +45,7 @@ const Testing = () => {
         if (hasEventListener.current) return;
 
         // условие для предотвращения навешивания слушателя после прохождения теста
-        if (modal.isStart) {
+        if (modalOption === 'prepare') {
             hasEventListener.current = true;
             document.addEventListener('keydown', onKeyDown);
         }
@@ -60,7 +54,7 @@ const Testing = () => {
 
     return (
         <div>
-            <Modal modal={modal} setModal={setModal} timer={timer} text={text} mistakes={mistakes}/>
+            <Modal visible={visible} setVisible={setVisible} modalOption={modalOption} text={text} timer={timer} mistakes={mistakes}/>
 
             <Window>
                 <Text text={text} state={state} mistakes={mistakes}/>

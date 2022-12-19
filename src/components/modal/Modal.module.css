@@ -1,7 +1,5 @@
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -12,8 +10,10 @@
     background-color: rgb(0 0 0 / 0.5);
 }
 
-.modal-active {
-    
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .alert {

@@ -6,7 +6,7 @@ import classes from './Statistics.module.css';
 const Statstics = ({text, mistakes, timer}) => {
     const route = useNavigate();
     const accuracy = +((text.length - mistakes.number) / text.length * 100).toFixed(2);
-    const time = +((timer.current.endTime - timer.current.startTime) / 1000 / 60).toFixed(3);
+    const time = +((timer.endTime - timer.startTime) / 1000 / 60).toFixed(3);
     const symbolsPerMinute = Math.round(text.length / time);
 
     return (
