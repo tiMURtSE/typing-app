@@ -1,0 +1,28 @@
+.custom__wrapper {
+    display: flex;
+    padding: 20px 50px;
+    border-radius: 20px;
+}
+
+.custom__text {
+    width: 600px;
+    height: 100px;
+    padding: 20px 50px;
+
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.custom__btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.btn {
+    width: 35px;
+    height: 35px;
+
+    text-align: center;
+    cursor: pointer;
+}
