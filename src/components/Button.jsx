@@ -1,11 +1,12 @@
 import React from 'react';
+import refresh from '../assets/refresh-icon.png';
 
 import { StyledButton } from './styles/Button.styled';
 
-const Button = ({ switchModalWindowState }) => {
+const Button = ({ title, onClickFunction }) => {
     return (
-        <StyledButton onClick={() => switchModalWindowState()}>
-            GO!
+        <StyledButton onClick={() => onClickFunction()}>
+            {title}
         </StyledButton>
     );
 };

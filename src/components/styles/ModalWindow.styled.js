@@ -12,7 +12,7 @@ export const StyledModalWidnow = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: rgb(61 61 61 / 0.5);
+    background-color: rgb(0 0 0 / 0.5);
 
     & .inner-window {
         position: relative;

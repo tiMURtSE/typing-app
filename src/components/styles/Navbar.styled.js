@@ -5,8 +5,7 @@ export const StyledNavbar = styled.nav`
     align-items: center;
     column-gap: 30px;
 
-    height: 50px;
-    padding: 0 30px;
+    padding: 20px 30px;
 
     box-shadow: 10px 10px 30px 0px #9e9d9d;
     border-left: 4px solid var(--dark);
@@ -14,6 +13,11 @@ export const StyledNavbar = styled.nav`
     border-bottom: 4px solid var(--dark);
 
     & a:hover {
-        text-decoration: underline;
+        text-decoration: underline 4px solid var(--dark);
+    }
+
+    & a:active {
+        background-color: var(--dark);
+        color: #fff;
     }
 `

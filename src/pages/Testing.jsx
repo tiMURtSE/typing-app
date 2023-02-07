@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+import TextBox from '../components/TextBox';
 import ModalWindow from '../components/ModalWindow';
 
 const Testing = () => {
@@ -10,6 +12,8 @@ const Testing = () => {
 
     return (
         <div>
+            <TextBox />
+            
             {isModalWindowActive && <ModalWindow switchModalWindowState={switchModalWindowState}/>}
         </div>
     );

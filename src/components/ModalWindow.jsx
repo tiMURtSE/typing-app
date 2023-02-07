@@ -8,7 +8,7 @@ const ModalWindow = ({ switchModalWindowState }) => {
         <StyledModalWidnow>
             <div className='inner-window'>
                 <span className='inner-window__label'>Старт?</span>
-                <Button switchModalWindowState={switchModalWindowState} />
+                <Button title='GO!' onClickFunction={switchModalWindowState} />
             </div>
         </StyledModalWidnow>
     );
