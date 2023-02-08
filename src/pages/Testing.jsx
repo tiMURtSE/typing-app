@@ -17,7 +17,7 @@ const Testing = () => {
             result,
             setResult,
         }}>
-            <div>
+            <div className='testing'>
                 <TextBox 
                     switchModalWindowState={switchModalWindowState}
                 />

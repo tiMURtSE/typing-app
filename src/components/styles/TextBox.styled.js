@@ -23,4 +23,16 @@ export const StyledTextBox = styled.div`
         padding: 20px 50px;
     }
 
+    & .curr {
+        background-color: green;
+        color: #fff;
+    }
+
+    & .completed {
+        color: green;
+    }
+
+    & .wrong {
+        background-color: red;
+    }
 `

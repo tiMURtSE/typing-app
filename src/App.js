@@ -8,6 +8,7 @@ import Highscores from './pages/Highscores';
 import Error from './pages/Error';
 
 const App = () => {
+
     return (
         <div className="App">
             <Routes>

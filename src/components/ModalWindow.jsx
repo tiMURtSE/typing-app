@@ -6,7 +6,6 @@ import { StyledModalWidnow } from './styles/ModalWindow.styled';
 
 const ModalWindow = ({ switchModalWindowState }) => {
     const { result, setResult } = useContext(ResultContext);
-    console.log(result)
 
     return (
         <StyledModalWidnow>
