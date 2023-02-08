@@ -5,16 +5,17 @@ import Button from './Button';
 import { StyledModalWidnow } from './styles/ModalWindow.styled';
 
 const ModalWindow = ({ switchModalWindowState }) => {
-    const { result } = useContext(ResultContext);
+    const { result, setResult } = useContext(ResultContext);
+    console.log(result)
 
     return (
         <StyledModalWidnow>
             <div className='inner-window'>
-                <span className='inner-window__label'>Старт?</span>
+                <span className='inner-window__label'>{result ? "RESULT!" : "GO!"}</span>
                 
                 <Button
-                    title='GO!'
-                    onClickFunction={switchModalWindowState}
+                    title="GO"
+                    onClickFunction={result ? () => {setResult(0); switchModalWindowState()} : switchModalWindowState}
                 />
             </div>
         </StyledModalWidnow>
