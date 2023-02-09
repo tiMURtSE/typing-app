@@ -7,25 +7,24 @@ import ResultContext from '../utils/createContext';
 const Testing = () => {
     const [isModalWindowActive, setIsModalWindowActive] = useState(true);
     const [result, setResult] = useState(0);
+    const [timer, setTimer] = useState({startTime: null});
 
     const switchModalWindowState = () => {
-        setIsModalWindowActive(!isModalWindowActive);
+        setIsModalWindowActive(prev => !prev);
     };
 
     return (
         <ResultContext.Provider value={{
             result,
             setResult,
+            timer,
+            setTimer,
         }}>
             <div className='testing'>
-                <TextBox 
-                    switchModalWindowState={switchModalWindowState}
-                />
+                <TextBox switchModalWindowState={switchModalWindowState}/>
                 
                 {(isModalWindowActive) && 
-                    <ModalWindow
-                        switchModalWindowState={switchModalWindowState}
-                    />
+                    <ModalWindow switchModalWindowState={switchModalWindowState}/>
                 }
             </div>
         </ResultContext.Provider>
