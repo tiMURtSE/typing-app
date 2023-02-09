@@ -1,1 +1,1 @@
-export const randomText = 'Раз два три';
+export const randomText = 'аа бб.';

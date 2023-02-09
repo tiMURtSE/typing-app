@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import TextBox from '../components/TextBox';
 import ModalWindow from '../components/ModalWindow';
@@ -6,7 +6,7 @@ import ResultContext from '../utils/createContext';
 
 const Testing = () => {
     const [isModalWindowActive, setIsModalWindowActive] = useState(true);
-    const [result, setResult] = useState(0);
+    const [result, setResult] = useState({date: null, accuracy: null, speed: null});
     const [timer, setTimer] = useState({startTime: null});
 
     const switchModalWindowState = () => {

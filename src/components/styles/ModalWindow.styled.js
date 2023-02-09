@@ -16,8 +16,9 @@ export const StyledModalWidnow = styled.div`
 
     & .inner-window {
         position: relative;
-        width: 500px;
-        height: 300px;
+        min-width: 500px;
+        min-height: 300px;
+        padding: 40px 100px;
         
         display: flex;
         flex-direction: column;
@@ -31,5 +32,12 @@ export const StyledModalWidnow = styled.div`
 
     & .inner-window__label {
         font-size: 35px;
+    }
+
+    & .stats {
+        display: flex;
+        flex-direction: column;
+
+        font-size: 28px;
     }
 `

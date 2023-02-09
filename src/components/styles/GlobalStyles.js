@@ -37,4 +37,8 @@ export const GlobalStyles = createGlobalStyle`
         color: var(--dark);
         height: 100%;
     }
+
+    .testing:focus {
+        outline: 3px solid blue;
+    }
 `
