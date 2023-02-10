@@ -1,22 +1,20 @@
 import styled from "styled-components";
 
 export const StyledText = styled.div`
-    max-height: 450px;
-    padding: 50px;
-
-    border-bottom: 4px solid var(--dark);
     overflow: auto;
     
     & .curr {
-        background-color: green;
+        background-color: var(--dark);
         color: #fff;
     }
 
     & .completed {
-        color: green;
+        background-color: var(--green);
+        color: var(--dark);
     }
 
     & .wrong {
-        background-color: red;
+        background-color: var(--red);
+        color: #fff;
     }
 `

@@ -1,17 +1,21 @@
 import styled from "styled-components";
 
 export const StyledTextBox = styled.div`
-    margin-top: 70px;
+    padding: 40px 50px;
 
-    display: flex;
-    flex-direction: column;
-
-    box-shadow: 10px 10px 30px 0px #9e9d9d;
+    box-shadow: 10px 10px 0px 0px var(--cream);
     border: 4px solid var(--dark);
 
     & .button-area {
         display: flex;
         justify-content: flex-end;
-        padding: 20px 50px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 4px solid var(--dark);
+    }
+
+    & .table {
+        border: 4px solid var(--dark);
+        width: 100%;
     }
 `

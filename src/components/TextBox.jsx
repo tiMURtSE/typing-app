@@ -10,13 +10,15 @@ const TextBox = ({ switchModalWindowState }) => {
     };
 
     return (
-        <StyledTextBox>
-            <Text switchModalWindowState={switchModalWindowState}/>
+        <>
+            <StyledTextBox>
+                <Text switchModalWindowState={switchModalWindowState}/>
 
-            <div className='button-area'>
-                <Button title='Заново' onClickFunction={() => restart()}/>
-            </div>
-        </StyledTextBox>
+                <div className='button-area'>
+                    <Button title='Заново' onClickFunction={() => restart()}/>
+                </div>
+            </StyledTextBox>
+        </>
     );
 };
 

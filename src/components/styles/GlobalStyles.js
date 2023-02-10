@@ -4,7 +4,11 @@ export const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap');
     
     :root {
-        --dark: #333;
+        --main-color: #ecd3ad;
+        --dark: #003945;
+        --cream: #a17b72;
+        --green: #aac1ad;
+        --red: #cd444e;
     }
     
     * {
@@ -25,7 +29,7 @@ export const GlobalStyles = createGlobalStyle`
         font-weight: inherit;
         font-size: inherit;
         color: inherit;
-        background-color: #fff;
+        background-color: inherit;
         border: 1px solid black;
     }
 
@@ -34,8 +38,10 @@ export const GlobalStyles = createGlobalStyle`
         font-family: 'Raleway', sans-serif;
         font-weight: 900;
         font-size: 24px;
+        background-color: #ecd3ad;
         color: var(--dark);
         height: 100%;
+        padding: 0 20px;
     }
 
     .testing:focus {

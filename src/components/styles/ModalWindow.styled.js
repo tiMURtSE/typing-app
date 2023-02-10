@@ -26,7 +26,7 @@ export const StyledModalWidnow = styled.div`
         align-items: center;
         row-gap: 20px;
 
-        background-color: #fff;
+        background-color: var(--main-color);
         border: 4px solid var(--dark);
     }
 
