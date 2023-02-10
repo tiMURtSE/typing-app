@@ -1,52 +1,55 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import ResultContext from '../utils/createContext';
 
 import { StyledText } from './styles/Text.styled';
-import { randomText } from '../api/fetchRandomText';
+import { text } from '../api/fetchRandomText';
+import { setResultInLocalStorage } from '../utils/setData';
 
 const Text = ({ switchModalWindowState }) => {
-    const text = randomText.split('');
-    const { setResult, timer, setTimer } = useContext(ResultContext);
-    let percentageOfIncorrectClicks = 0;
-    let isFirstTimeIncorrectClick = true;
+    const textForTesting = text;
+    const { setResult } = useContext(ResultContext);
+    let testingTimeStartedAt = null;
+    let wrongPressCount = 0;
+    let isFirstTimeWrongPress = true;
 
     const completeTesting = () => {
-        const text = document.querySelector('.text');
-        text.blur();
+        const textElement = document.querySelector('.text');
 
+        textElement.blur();
         switchModalWindowState();
         calculateResults();
     };
 
     const calculateResults = () => {
-        const timeInMinutes = ((Date.now() - timer.startTime) / 1000 / 60).toFixed(2);
+        const timeInMinutes = ((Date.now() - testingTimeStartedAt) / 1000 / 60).toFixed(2);
         const testingCompletionDate = new Date().toLocaleString();
-        const sumOfCharacters = text.length;
-        const percentageOfCorrectClicks = 100 - Number((percentageOfIncorrectClicks / sumOfCharacters * 100).toFixed(2));
-        const charactersPerMinute = Math.round(sumOfCharacters / timeInMinutes);
-      
-        setResult({
+        const characterCount = textForTesting.length;
+        const rateOfCorrectPress = Number(100 - (wrongPressCount / characterCount * 100)).toFixed(2);
+        const charactersPerMinute = Math.round(characterCount / timeInMinutes);
+        const newResult = {
             date: testingCompletionDate,
-            accuracy: percentageOfCorrectClicks,
+            accuracy: rateOfCorrectPress,
             speed: charactersPerMinute,
-        });
+        };
+
+        setResult(newResult);
+        setResultInLocalStorage(newResult);
     };
 
     const keydownEventHandler = (event) => {
-        const keyCode = event.code;
         const pressedKey = event.key;
         const currentCharacterElement = document.querySelector('.curr');
-        const startTime = timer.startTime;
+        const keyCode = event.code;
 
         if (isSpecialKey(keyCode)) return;
 
-        if (!startTime) setTimer({...timer, startTime: Date.now()});
+        if (!testingTimeStartedAt) testingTimeStartedAt = Date.now();
         
         if (pressedKey === currentCharacterElement.textContent) {
             currentCharacterElement.classList.remove('curr');
             currentCharacterElement.classList.remove('wrong');
             currentCharacterElement.classList.add('completed');
-            isFirstTimeIncorrectClick = true;
+            isFirstTimeWrongPress = true;
     
             if (!currentCharacterElement.nextElementSibling) {
                 completeTesting();
@@ -55,16 +58,16 @@ const Text = ({ switchModalWindowState }) => {
     
             currentCharacterElement.nextElementSibling.classList.add('curr');
         } else {
-            if (isFirstTimeIncorrectClick) {
-                percentageOfIncorrectClicks++;
-                isFirstTimeIncorrectClick = false;
+            if (isFirstTimeWrongPress) {
+                currentCharacterElement.classList.add('wrong');
+                wrongPressCount++;
+                isFirstTimeWrongPress = false;
             }
-            currentCharacterElement.classList.add('wrong');
         }
     };
-    
-    const isSpecialKey = (key) => {
-        const otherKeys = [
+
+    const isSpecialKey = (keyCode) => {
+        const otherKeysCode = [
             "Backquote", "Minus", "Plus", 
             "Equal", "BracketLeft", "BracketRight", "Backslash", 
             "Semicolon", "Quote", "Slash", "Period", 
@@ -72,18 +75,25 @@ const Text = ({ switchModalWindowState }) => {
         ];
     
         return (
-            !key.includes('Digit') && 
-            !key.includes('Key') && 
-            !otherKeys.includes(key)
+            !keyCode.includes('Digit') && 
+            !keyCode.includes('Key') && 
+            !otherKeysCode.includes(keyCode)
         );
     };
     
     return (
         <StyledText className='text' tabIndex={1} onKeyDown={keydownEventHandler}>
-                {text.map((character, index) => {
-                   if (index === 0) return <span className='character curr' key={index}>{character}</span>;
+                {textForTesting.map((character, index) => {
+                    const timeStampForRendering = new Date().toLocaleTimeString();
 
-                    return <span className='character' key={index}>{character}</span>;
+                    return (
+                        <span 
+                            className={`character ${!index ? 'curr' : ''} ${timeStampForRendering} `}
+                            key={index}
+                        >
+                            {character}
+                        </span>
+                    )
                 })}
         </StyledText>
     );

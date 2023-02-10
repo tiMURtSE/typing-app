@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import TextBox from '../components/TextBox';
 import ModalWindow from '../components/ModalWindow';
