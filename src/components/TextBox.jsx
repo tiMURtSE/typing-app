@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Text from './Text';
 import Button from './Button';
 import { StyledTextBox } from './styles/TextBox.styled';
+import ResultContext from '../utils/createContext';
 
-const TextBox = ({ switchModalWindowState }) => {
+const TextBox = () => {
+    const { isModalWindowActive, setIsModalWindowActive } = useContext(ResultContext);
     const restart = () => {
-        switchModalWindowState();
+        setIsModalWindowActive(!isModalWindowActive);
     };
 
     return (
         <>
             <StyledTextBox>
-                <Text switchModalWindowState={switchModalWindowState}/>
+                <Text/>
 
                 <div className='button-area'>
                     <Button title='Заново' onClickFunction={() => restart()}/>

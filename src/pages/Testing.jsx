@@ -9,23 +9,19 @@ const Testing = () => {
     const [result, setResult] = useState({date: null, accuracy: null, speed: null});
     const [timer, setTimer] = useState({startTime: null});
 
-    const switchModalWindowState = () => {
-        setIsModalWindowActive(prev => !prev);
-    };
-
     return (
         <ResultContext.Provider value={{
+            isModalWindowActive,
+            setIsModalWindowActive,
             result,
             setResult,
             timer,
             setTimer,
         }}>
             <div className='testing'>
-                <TextBox switchModalWindowState={switchModalWindowState}/>
+                <TextBox/>
                 
-                {(isModalWindowActive) && 
-                    <ModalWindow switchModalWindowState={switchModalWindowState}/>
-                }
+                {isModalWindowActive && <ModalWindow />}
             </div>
         </ResultContext.Provider>
     );

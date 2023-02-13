@@ -5,9 +5,9 @@ import { StyledText } from './styles/Text.styled';
 import { text } from '../api/fetchRandomText';
 import { setResultInLocalStorage } from '../utils/setData';
 
-const Text = ({ switchModalWindowState }) => {
+const Text = () => {
     const textForTesting = text;
-    const { setResult } = useContext(ResultContext);
+    const { isModalWindowActive, setIsModalWindowActive, setResult } = useContext(ResultContext);
     let testingTimeStartedAt = null;
     let wrongPressCount = 0;
     let isFirstTimeWrongPress = true;
@@ -16,7 +16,7 @@ const Text = ({ switchModalWindowState }) => {
         const textElement = document.querySelector('.text');
 
         textElement.blur();
-        switchModalWindowState();
+        setIsModalWindowActive(!isModalWindowActive);
         calculateResults();
     };
 
