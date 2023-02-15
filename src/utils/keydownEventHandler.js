@@ -7,7 +7,7 @@ const keydownEventHandler = (args) => {
     if (isSpecialKey(keyCode)) return { isTestingOver: false, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
 
     if (!timeStartedAt) timeStartedAt = Date.now();
-    console.log(1231)
+    
     if (key === currentCharacterElement.textContent) {
         currentCharacterElement.classList.remove('curr');
         currentCharacterElement.classList.remove('wrong');

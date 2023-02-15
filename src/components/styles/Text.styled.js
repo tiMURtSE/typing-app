@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledText = styled.div`
+const StyledText = styled.div`
     overflow: auto;
     
     & .curr {
@@ -18,3 +18,5 @@ export const StyledText = styled.div`
         color: #fff;
     }
 `
+
+export default StyledText;

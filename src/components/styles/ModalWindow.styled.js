@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledModalWidnow = styled.div`
+const StyledModalWidnow = styled.div`
     position: absolute;
     top: 0;
     right: 0;
@@ -41,3 +41,5 @@ export const StyledModalWidnow = styled.div`
         font-size: 28px;
     }
 `
+
+export default StyledModalWidnow;

@@ -1,12 +1,12 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext } from 'react';
 import ResultContext from '../utils/createContext';
 
-import { StyledText } from './styles/Text.styled';
+import StyledText from './styles/Text.styled';
 import { text } from '../api/fetchRandomText';
 import { setResultInLocalStorage } from '../utils/setData';
 import keydownEventHandler from '../utils/keydownEventHandler';
 
-const Text = ({ activateWindow }) => {
+const Text = ({ isModalActive, activateModal }) => {
     const textForTesting = text;
     const { setResult } = useContext(ResultContext);
     let timeStartedAt = null;
@@ -17,7 +17,7 @@ const Text = ({ activateWindow }) => {
         const textElement = document.querySelector('.text');
 
         textElement.blur();
-        activateWindow();
+        activateModal();
         calculateResults();
     };
 
@@ -37,7 +37,9 @@ const Text = ({ activateWindow }) => {
         setResultInLocalStorage(newResult);
     };
 
-    const handler = (event) => {
+    const sendEventToHandler = (event) => {
+        if (isModalActive) return;
+
         const testingParams = keydownEventHandler({
             event, 
             timeStartedAt,
@@ -53,22 +55,24 @@ const Text = ({ activateWindow }) => {
         if (isTestingOver) completeTesting();
     };
 
-    return (
-        <StyledText className='text' tabIndex={1} onKeyDown={handler}>
-                <div>
-                    {textForTesting.map((character, index) => {
-                        const timeStampForRendering = new Date().toLocaleTimeString();
+    const createText = (character, index) => {
+        const timeStamp = new Date().toLocaleTimeString();
+        const currentClass = !index ? 'curr' : '';
+        const className = ['character', currentClass, timeStamp];
 
-                        return (
-                            <span 
-                                className={`character ${!index ? 'curr' : ''} ${timeStampForRendering} `}
-                                key={index}
-                            >
-                                {character}
-                            </span>
-                        )
-                    })}
-                </div>
+        return (
+            <span 
+                className={className.join(' ')}
+                key={index}
+            >
+                {character}
+            </span>
+        )
+    };
+
+    return (
+        <StyledText className='text' tabIndex={1} onKeyDown={sendEventToHandler}>
+            {textForTesting.map(createText)}
         </StyledText>
     );
 };

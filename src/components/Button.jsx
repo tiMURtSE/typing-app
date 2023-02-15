@@ -2,10 +2,10 @@ import React from 'react';
 
 import { StyledButton } from './styles/Button.styled';
 
-const Button = ({ title, onClickFunction }) => {
+const Button = ({ children, action, ...props}) => {
     return (
-        <StyledButton onClick={() => onClickFunction()}>
-            {title}
+        <StyledButton onClick={() => action()} {...props}>
+            {children}
         </StyledButton>
     );
 };
