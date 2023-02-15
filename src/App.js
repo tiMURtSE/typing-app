@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import SharedLayout from './components/SharedLayout';
@@ -8,6 +8,16 @@ import Highscores from './pages/Highscores';
 import Error from './pages/Error';
 
 const App = () => {
+    useEffect(() => {
+        const htmlElement = document.querySelector('html');
+        const keepTextComponentFocused = () => {
+            const text = document.querySelector('.text');
+
+            if (text) text.focus();
+        }
+
+        htmlElement.addEventListener('click', keepTextComponentFocused);
+    }, []);
 
     return (
         <div className="App">

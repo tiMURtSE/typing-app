@@ -6,7 +6,7 @@ import Button from './Button';
 import { StyledModalWidnow } from './styles/ModalWindow.styled';
 import { MENU_ROUTE } from '../utils/routes';
 
-const ModalWindow = () => {
+const ModalWindow = ({ isModalActive, onClose }) => {
     const { isModalWindowActive, setIsModalWindowActive, result, setResult } = useContext(ResultContext);
     const navigate = useNavigate();
     
@@ -14,16 +14,18 @@ const ModalWindow = () => {
         const text = document.querySelector('.text');
 
         text.focus();
-        setIsModalWindowActive(!isModalWindowActive);
+        // setIsModalWindowActive(!isModalWindowActive);
+        onClose();
     };
 
     const leaveTestingPage = () => {
-        setIsModalWindowActive(!isModalWindowActive);
+        // setIsModalWindowActive(!isModalWindowActive);
+        onClose();
         setResult({date: null, accuracy: null, speed: null});
         navigate(MENU_ROUTE);
     };
 
-    if (!isModalWindowActive) return;
+    if (!isModalActive) return;
 
     return (
         <StyledModalWidnow>

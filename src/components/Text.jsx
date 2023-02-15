@@ -1,14 +1,15 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import ResultContext from '../utils/createContext';
 
 import { StyledText } from './styles/Text.styled';
 import { text } from '../api/fetchRandomText';
 import { setResultInLocalStorage } from '../utils/setData';
+import keydownEventHandler from '../utils/keydownEventHandler';
 
-const Text = () => {
+const Text = ({ activateWindow }) => {
     const textForTesting = text;
-    const { isModalWindowActive, setIsModalWindowActive, setResult } = useContext(ResultContext);
-    let testingTimeStartedAt = null;
+    const { setResult } = useContext(ResultContext);
+    let timeStartedAt = null;
     let wrongPressCount = 0;
     let isFirstTimeWrongPress = true;
 
@@ -16,12 +17,12 @@ const Text = () => {
         const textElement = document.querySelector('.text');
 
         textElement.blur();
-        setIsModalWindowActive(!isModalWindowActive);
+        activateWindow();
         calculateResults();
     };
 
     const calculateResults = () => {
-        const timeInMinutes = ((Date.now() - testingTimeStartedAt) / 1000 / 60).toFixed(2);
+        const timeInMinutes = ((Date.now() - timeStartedAt) / 1000 / 60).toFixed(2);
         const testingCompletionDate = new Date().toLocaleString();
         const characterCount = textForTesting.length;
         const rateOfCorrectPress = Number(100 - (wrongPressCount / characterCount * 100)).toFixed(2);
@@ -36,65 +37,38 @@ const Text = () => {
         setResultInLocalStorage(newResult);
     };
 
-    const keydownEventHandler = (event) => {
-        const pressedKey = event.key;
-        const currentCharacterElement = document.querySelector('.curr');
-        const keyCode = event.code;
+    const handler = (event) => {
+        const testingParams = keydownEventHandler({
+            event, 
+            timeStartedAt,
+            wrongPressCount,
+            isFirstTimeWrongPress
+        });
 
-        if (isSpecialKey(keyCode)) return;
+        const isTestingOver = testingParams.isTestingOver;
+        timeStartedAt = testingParams.timeStartedAt;
+        wrongPressCount = testingParams.wrongPressCount;
+        isFirstTimeWrongPress = testingParams.isFirstTimeWrongPress;
 
-        if (!testingTimeStartedAt) testingTimeStartedAt = Date.now();
-        
-        if (pressedKey === currentCharacterElement.textContent) {
-            currentCharacterElement.classList.remove('curr');
-            currentCharacterElement.classList.remove('wrong');
-            currentCharacterElement.classList.add('completed');
-            isFirstTimeWrongPress = true;
-    
-            if (!currentCharacterElement.nextElementSibling) {
-                completeTesting();
-                return;
-            }
-    
-            currentCharacterElement.nextElementSibling.classList.add('curr');
-        } else {
-            if (isFirstTimeWrongPress) {
-                currentCharacterElement.classList.add('wrong');
-                wrongPressCount++;
-                isFirstTimeWrongPress = false;
-            }
-        }
+        if (isTestingOver) completeTesting();
     };
 
-    const isSpecialKey = (keyCode) => {
-        const otherKeysCode = [
-            "Backquote", "Minus", "Plus", 
-            "Equal", "BracketLeft", "BracketRight", "Backslash", 
-            "Semicolon", "Quote", "Slash", "Period", 
-            "Comma", "Space"
-        ];
-    
-        return (
-            !keyCode.includes('Digit') && 
-            !keyCode.includes('Key') && 
-            !otherKeysCode.includes(keyCode)
-        );
-    };
-    
     return (
-        <StyledText className='text' tabIndex={1} onKeyDown={keydownEventHandler}>
-                {textForTesting.map((character, index) => {
-                    const timeStampForRendering = new Date().toLocaleTimeString();
+        <StyledText className='text' tabIndex={1} onKeyDown={handler}>
+                <div>
+                    {textForTesting.map((character, index) => {
+                        const timeStampForRendering = new Date().toLocaleTimeString();
 
-                    return (
-                        <span 
-                            className={`character ${!index ? 'curr' : ''} ${timeStampForRendering} `}
-                            key={index}
-                        >
-                            {character}
-                        </span>
-                    )
-                })}
+                        return (
+                            <span 
+                                className={`character ${!index ? 'curr' : ''} ${timeStampForRendering} `}
+                                key={index}
+                            >
+                                {character}
+                            </span>
+                        )
+                    })}
+                </div>
         </StyledText>
     );
 };

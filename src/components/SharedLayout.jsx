@@ -5,14 +5,15 @@ import Navbar from './Navbar';
 import { StyledContainer } from './styles/Containter.styled';
 
 const SharedLayout = () => {
-    const focusBackToText = () => {
+    const onClick = (event) => {
         const text = document.querySelector('.text');
 
-        text.focus();
+        // text.focus();
+        // console.log(document.activeElement);
     };
 
     return (
-        <StyledContainer onClick={focusBackToText}>
+        <StyledContainer className='container' onClick={onClick}>
             <Navbar />
             <Outlet />
         </StyledContainer>
