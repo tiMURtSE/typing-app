@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ModalWindow from '../components/ModalWindow';
 import Text from '../components/Text';
 import Button from '../components/Button';
-import { StyledTextBox } from '../components/styles/TextBox.styled';
+import StyledTextBox from '../components/styles/TextBox.styled';
 import ResultContext from '../utils/createContext';
 
 const Testing = () => {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledTextBox = styled.div`
+const StyledTextBox = styled.div`
     padding: 40px 50px;
 
     box-shadow: 10px 10px 0px 0px var(--cream);
@@ -19,3 +19,5 @@ export const StyledTextBox = styled.div`
         width: 100%;
     }
 `
+
+export default StyledTextBox;

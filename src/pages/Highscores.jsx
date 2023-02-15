@@ -1,6 +1,6 @@
 import React from 'react';
 import HighScoreItem from '../components/HighscoreItem';
-import { StyledTextBox } from '../components/styles/TextBox.styled';
+import StyledTextBox from '../components/styles/TextBox.styled';
 
 const Highscores = () => {
     const highscores = JSON.parse(localStorage.getItem('highscores'));
@@ -12,7 +12,7 @@ const Highscores = () => {
                     <tr>
                         <td>№</td>
                         <td>Дата</td>
-                        <td>Скорость<br/>сим./м.</td>
+                        <td>Скорость<br/>(сим./м.)</td>
                         <td>Точность</td>
                     </tr>
                 </thead>
@@ -23,7 +23,6 @@ const Highscores = () => {
                     )}
                 </tbody>
             </table>
-            {/* <HighScoreItem /> */}
         </StyledTextBox>
     );
 };

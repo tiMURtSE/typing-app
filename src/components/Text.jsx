@@ -12,6 +12,7 @@ const Text = ({ isModalActive, activateModal }) => {
     let timeStartedAt = null;
     let wrongPressCount = 0;
     let isFirstTimeWrongPress = true;
+    console.log('render')
 
     const completeTesting = () => {
         const textElement = document.querySelector('.text');
