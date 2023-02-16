@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 const StyledText = styled.div`
     overflow: auto;
+
+    &:focus {
+        outline: none;
+    }
     
     & .curr {
         background-color: var(--dark);

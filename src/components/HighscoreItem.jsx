@@ -10,7 +10,7 @@ const HighScoreItem = ({ score, number}) => {
     return (
         <StyledHighscoreItem>
             <td>{number}</td>
-            <td>
+            <td className='date-row'>
                 <div>{date}</div>
                 <div>{[hours, minutes].join(':')}</div>
             </td>

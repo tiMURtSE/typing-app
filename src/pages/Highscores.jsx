@@ -10,10 +10,10 @@ const Highscores = () => {
             <table className='table'>
                 <thead>
                     <tr>
-                        <td>№</td>
-                        <td>Дата</td>
-                        <td>Скорость<br/>(сим./м.)</td>
-                        <td>Точность</td>
+                        <th>№</th>
+                        <th>Дата</th>
+                        <th>Скорость<br/>(сим./м.)</th>
+                        <th>Точность</th>
                     </tr>
                 </thead>
 
