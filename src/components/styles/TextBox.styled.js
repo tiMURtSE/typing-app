@@ -17,21 +17,10 @@ const StyledTextBox = styled.div`
 
     & .table {
         width: 100%;
-        border: 2px solid #fff;
-        border-collapse: collapse;
-    }
-
-    & .table th {
-        padding-bottom: 10px;
-        line-height: 1;
+        text-align: center;
 
         border: none;
-        border-bottom: 4px solid black;
-        border-right: 4px solid black;
-    }
-
-    & .table th:last-child {
-        border-right: none;
+        border-collapse: collapse;
     }
 `
 

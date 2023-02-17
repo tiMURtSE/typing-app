@@ -14,7 +14,7 @@ const HighScoreItem = ({ score, number}) => {
                 <div>{date}</div>
                 <div>{[hours, minutes].join(':')}</div>
             </td>
-            <td>{score.speed}</td>
+            <td>{`${score.speed} сим./м.`}</td>
             <td>{`${accuracy}%`}</td>
         </StyledHighscoreItem>
     );
