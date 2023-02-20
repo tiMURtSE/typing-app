@@ -1,6 +1,4 @@
- const randomText = 'После';
-
- const replaceMissingKeys = (text) => {
+const replaceUncommonKeys = (text) => {
     const replacement = {
         'ё': 'е',
         '—': '-',
@@ -22,5 +20,4 @@
     return splittedText;
 };
 
-export const text = replaceMissingKeys(randomText);
-
+export default replaceUncommonKeys;

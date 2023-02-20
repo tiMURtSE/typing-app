@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledText = styled.div`
+    min-height: 200px;
     overflow: auto;
 
     &:focus {

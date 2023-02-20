@@ -9,7 +9,7 @@ const StyledTableHead = styled.tr`
         border: none;
         border-bottom: 4px solid black;
 
-        &.table__header-data {
+        &.table__header-title {
             cursor: pointer;
 
             &:hover {

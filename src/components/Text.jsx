@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ResultContext from '../utils/createContext';
 
 import StyledText from './styles/Text.styled';
-import { text } from '../api/fetchRandomText';
 import { setResultInLocalStorage } from '../utils/setData';
 import keydownEventHandler from '../utils/keydownEventHandler';
+import fetchTextForTesting from '../api/fetchTextForTesting';
+import replaceUncommonKeys from '../utils/replaceUncommonKeys';
 
 const Text = ({ isModalActive, activateModal }) => {
-    const textForTesting = text;
+    const [textForTesting, setTextForTesting] = useState([]);
     const { setResult } = useContext(ResultContext);
     let timeStartedAt = null;
     let wrongPressCount = 0;
     let isFirstTimeWrongPress = true;
-    console.log('render')
 
     const completeTesting = () => {
         const textElement = document.querySelector('.text');
@@ -70,6 +70,21 @@ const Text = ({ isModalActive, activateModal }) => {
             </span>
         )
     };
+
+    const handleText = async () => {
+        try {
+            const data = await fetchTextForTesting();
+            const text = replaceUncommonKeys(data.text);
+
+            setTextForTesting(text);
+        } catch (error) {
+            console.log(error.message)
+        }
+    };
+
+    useEffect(() => {
+        handleText();
+    }, []);
 
     return (
         <StyledText className='text' tabIndex={1} onKeyDown={sendEventToHandler}>
