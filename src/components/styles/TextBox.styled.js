@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const StyledTextBox = styled.div`
+    min-height: 70vh;
     padding: 40px 50px;
+    overflow: auto;
 
     background-color: #fff;
     box-shadow: 10px 10px 0px 0px var(--cream);

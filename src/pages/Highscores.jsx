@@ -47,7 +47,7 @@ const Highscores = () => {
                     <StyledTableHead>
                         <th>№</th>
                         <th className='table__header-title' onClick={defineSortingState}><span>Дата</span></th>
-                        <th className='table__header-title' onClick={defineSortingState}><span>Скорость</span></th>
+                        <th className='table__header-title descending-order' onClick={defineSortingState}><span>Скорость</span></th>
                         <th className='table__header-title' onClick={defineSortingState}><span>Точность</span></th>
                     </StyledTableHead>
                 </thead>
