@@ -29,12 +29,13 @@ const ModalWindow = ({ isVisible, closeModal }) => {
     return (
         <StyledModalWidnow>
             <div className='inner-window'>
-                <span className='inner-window__label'>{result.date ? "Результат!" : "Готовы?"}</span>
+                {/* <span className='inner-window__label'>{result.date ? "Результат!" : "Готовы?"}</span> */}
 
-                {result.date ? <TestingStats result={result}/> : null}
+                {/* {result.date ? <TestingStats result={result}/> : null} */}
                 
                 <Button 
-                    action={result.date ? leaveTestingPage : startTesting}
+                    // action={result.date ? leaveTestingPage : startTesting}
+                    action={closeModal}
                 >
                     OK
                 </Button>

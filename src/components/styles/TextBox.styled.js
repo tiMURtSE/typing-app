@@ -24,6 +24,13 @@ const StyledTextBox = styled.div`
         border: none;
         border-collapse: collapse;
     }
+
+    & .user-text-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        row-gap: 20px;
+    }
 `
 
 export default StyledTextBox;
