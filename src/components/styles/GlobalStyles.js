@@ -9,6 +9,10 @@ export const GlobalStyles = createGlobalStyle`
         --cream: #a17b72;
         --green: #aac1ad;
         --red: #cd444e;
+        --light-grey: #f0f0f0;
+
+        --medium-font-size: 24px;
+        --small-font-size: 18px;
     }
     
     * {
@@ -40,7 +44,7 @@ export const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'Raleway', sans-serif;
         font-weight: 900;
-        font-size: 24px;
+        font-size: var(--medium-font-size);
         background-color: #ecd3ad;
         color: var(--dark);
         height: 100%;
@@ -50,4 +54,30 @@ export const GlobalStyles = createGlobalStyle`
     .testing:focus {
         outline: 3px solid blue;
     }
-`
+`;
+
+const border = `4px solid var(--dark);`;
+const activeButton = `
+    background-color: var(--dark);
+    color: #fff;
+`;
+const modalBackground = `
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(0 0 0 / 0.5);
+`;
+
+export {
+    border,
+    activeButton,
+    modalBackground,
+};

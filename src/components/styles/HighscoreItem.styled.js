@@ -10,10 +10,6 @@ const StyledHighscoreItem = styled.tr`
     & td {
         padding: 10px 0;
     }
-
-    & .date-row {
-        font-size: 16px;
- }
 `
 
 export default StyledHighscoreItem;

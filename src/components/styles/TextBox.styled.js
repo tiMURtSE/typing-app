@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { activeButton, border } from "./GlobalStyles";
 
 const StyledTextBox = styled.div`
     min-height: 70vh;
@@ -25,7 +26,7 @@ const StyledTextBox = styled.div`
         border-collapse: collapse;
     }
 
-    & .user-text-wrapper {
+    & .text-box__wrapper {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;

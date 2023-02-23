@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { activeButton } from "./GlobalStyles";
 
 export const StyledNavbar = styled.nav`
     display: flex;
@@ -17,7 +18,6 @@ export const StyledNavbar = styled.nav`
     }
 
     & a:active {
-        background-color: var(--dark);
-        color: #fff;
+        ${activeButton}
     }
 `
