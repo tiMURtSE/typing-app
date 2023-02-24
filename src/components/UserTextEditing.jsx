@@ -1,24 +1,11 @@
 import React from 'react';
-import setNewUserTextInStorage from '../utils/setNewUserText';
-import Button from './Button';
 
+import Button from './Button';
 import StyledUserTextEditing from './styles/UserTextEditing.styled';
+import setUserTextInStorage from '../utils/setNewUserText';
 
 const UserTextEditing = ({ userTexts, setUserTexts, modal, closeModal }) => {
     const { isVisible, isEditing, editingTextId } = modal;
-
-    const createUserText = () => {
-        const text = document.querySelector('.user-text-editing__textarea').value;
-        const id = userTexts.length + 1;
-        const newText = {id, text};
-
-        if (text) {
-            setNewUserTextInStorage(newText);
-            setUserTexts([...userTexts, newText]);
-        }
-
-        closeModal();
-    };
 
     const getEditingText = () => {
         const textObject = userTexts.filter(text => text.id === editingTextId);
@@ -30,7 +17,20 @@ const UserTextEditing = ({ userTexts, setUserTexts, modal, closeModal }) => {
         }
     };
 
-    const changeEditingText = () => {
+    const createUserText = () => {
+        const text = document.querySelector('.user-text-editing__textarea').value;
+        const id = Date.now();
+        const newText = {id, text};
+
+        if (text) {
+            setUserTextInStorage(newText);
+            setUserTexts([...userTexts, newText]);
+        }
+
+        closeModal();
+    };
+
+    const changeText = () => {
         const text = document.querySelector('.user-text-editing__textarea').value;
         const newText = {id: editingTextId, text};
 
@@ -42,16 +42,10 @@ const UserTextEditing = ({ userTexts, setUserTexts, modal, closeModal }) => {
                      return elem;
                 }
              })]);
-            setNewUserTextInStorage(newText, editingTextId);
+            setUserTextInStorage(newText, editingTextId);
         }
 
         closeModal();
-    };
-
-    const editText = (event) => {
-        const value = event.target.value;
-
-        setUserTexts([...userTexts.filter(text => text.id !== editingTextId), {id: editingTextId, text: value}]);
     };
 
     if (!isVisible) return null;
@@ -67,7 +61,7 @@ const UserTextEditing = ({ userTexts, setUserTexts, modal, closeModal }) => {
 
                 <div className='user-text-editing__buttons'>
                     <Button
-                        action={isEditing ? changeEditingText : createUserText}
+                        action={isEditing ? changeText : createUserText}
                         className='user-text-editing__button'
                         backgroundColor='#fff'
                     >

@@ -1,5 +1,5 @@
-const setNewUserTextInStorage = (newText, replacementId) => {
-    let userTexts = JSON.parse(localStorage.getItem('user-texts')) ?? [];
+const setUserTextInStorage = (newText, replacementId) => {
+    let userTexts = JSON.parse(localStorage.getItem('user-texts')) || [];
 
     if (replacementId) {
         userTexts = userTexts.map(text => {
@@ -16,4 +16,4 @@ const setNewUserTextInStorage = (newText, replacementId) => {
     localStorage.setItem('user-texts', JSON.stringify(userTexts));
 };
 
-export default setNewUserTextInStorage;
+export default setUserTextInStorage;

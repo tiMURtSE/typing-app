@@ -2,12 +2,12 @@ import React from 'react';
 
 import StyledNewUserTextButton from './styles/NewUserTextButton';
 
-const NewUserTextButton = ({ createNewUserText }) => {
+const NewUserTextButton = ({ openUserText }) => {
     return (
         <StyledNewUserTextButton>
             <div
                 className='new-user-text__inner'
-                onClick={createNewUserText}
+                onClick={openUserText}
             >
                 <span className='new-user-text__label'>Новый текст</span>
             </div>
