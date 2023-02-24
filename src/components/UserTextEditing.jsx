@@ -4,8 +4,8 @@ import Button from './Button';
 import StyledUserTextEditing from './styles/UserTextEditing.styled';
 import setUserTextInStorage from '../utils/setNewUserText';
 
-const UserTextEditing = ({ userTexts, setUserTexts, modal, closeModal }) => {
-    const { isVisible, isEditing, editingTextId } = modal;
+const UserTextEditing = ({ userTexts, setUserTexts, userTextModal, closeModal }) => {
+    const { isVisible, isEditing, editingTextId } = userTextModal;
 
     const getEditingText = () => {
         const textObject = userTexts.filter(text => text.id === editingTextId);

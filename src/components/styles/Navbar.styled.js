@@ -1,23 +1,44 @@
 import styled from "styled-components";
-import { activeButton } from "./GlobalStyles";
+import { activeButton, border } from "./GlobalStyles";
+import background from '../../../src/assets/icons8-клавиатура-750.png';
 
-export const StyledNavbar = styled.nav`
+const StyledNavbar = styled.nav`
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    column-gap: 30px;
-    padding: 20px 50px 20px;
+    padding: 20px 50px;
 
     background-color: #fff;
     box-shadow: 10px 10px 0px 0px var(--cream);
-    border-left: 4px solid var(--dark);
-    border-right: 4px solid var(--dark);
-    border-bottom: 4px solid var(--dark);
+    border-left: ${border};
+    border-right: ${border};
+    border-bottom: ${border};
 
-    & a:hover {
-        text-decoration: underline 4px solid var(--dark);
-    }
+    & .navbar__logo {
+        width: 60px;
+        height: 40px;
 
-    & a:active {
-        ${activeButton}
+        background-image: url(${background});
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #fff;
+        cursor: pointer;
     }
-`
+    
+    & .navbar__nav {
+        display: flex;
+        column-gap: 30px;
+
+        
+        & a:hover {
+            text-decoration: underline ${border};
+        }
+
+        & a:active {
+            ${activeButton}
+        }
+    }
+`;
+
+export default StyledNavbar;

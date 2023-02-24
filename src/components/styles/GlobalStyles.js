@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap');
-    
     :root {
         --main-color: #ecd3ad;
         --dark: #003945;
@@ -53,6 +51,10 @@ export const GlobalStyles = createGlobalStyle`
 
     .testing:focus {
         outline: 3px solid blue;
+    }
+
+    .logo {
+        background-image: url('../../src/assets/icons8-клавиатура-750.png');
     }
 `;
 

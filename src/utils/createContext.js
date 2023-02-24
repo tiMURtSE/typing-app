@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const ResultContext = createContext({});
+const UserTextsContext = createContext([]);
 
-export default ResultContext;
+export default UserTextsContext;

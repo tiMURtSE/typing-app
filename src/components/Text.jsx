@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ResultContext from '../utils/createContext';
 
 import StyledText from './styles/Text.styled';
 import { setResultInLocalStorage } from '../utils/setData';
 import keydownEventHandler from '../utils/keydownEventHandler';
 import fetchTextForTesting from '../api/fetchTextForTesting';
 import replaceUncommonKeys from '../utils/replaceUncommonKeys';
+import UserTextsContext from '../utils/createContext';
 
-const Text = ({ isModalActive, activateModal }) => {
+const Text = ({ isModalActive, activateModal, setResult }) => {
     const [textForTesting, setTextForTesting] = useState([]);
-    const { setResult } = useContext(ResultContext);
+    const { userText, setUserText } = useContext(UserTextsContext);
     let timeStartedAt = null;
     let wrongPressCount = 0;
     let isFirstTimeWrongPress = true;
@@ -34,8 +34,13 @@ const Text = ({ isModalActive, activateModal }) => {
             speed: charactersPerMinute,
         };
 
-        setResult(newResult);
-        setResultInLocalStorage(newResult);
+        if (userText.id) {
+            setUserText({});
+            setResult(newResult);
+        } else {
+            setResult(newResult);
+            setResultInLocalStorage(newResult);
+        }
     };
 
     const sendEventToHandler = (event) => {
@@ -83,7 +88,11 @@ const Text = ({ isModalActive, activateModal }) => {
     };
 
     useEffect(() => {
-        handleText();
+        if (userText.id) {
+            setTextForTesting(replaceUncommonKeys(userText.text));
+        } else {
+            handleText();
+        }
     }, []);
 
     return (

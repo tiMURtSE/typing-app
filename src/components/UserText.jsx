@@ -2,7 +2,7 @@ import React from 'react';
 
 import StyledUserText from './styles/UserText.styled';
 
-const UserText = ({ text, editText, deleteText }) => {
+const UserText = ({ text, startTesting, editText, deleteText }) => {
 
     return (
         <StyledUserText>
@@ -11,7 +11,7 @@ const UserText = ({ text, editText, deleteText }) => {
             </div>
 
             <div className='user-text__buttons'>
-                <button type='button'>Тест</button>
+                <button onClick={startTesting} type='button'>Тест</button>
                 <button onClick={editText} type='button'>Изменить</button>
                 <button onClick={deleteText} type='button'>Удалить</button>
             </div>

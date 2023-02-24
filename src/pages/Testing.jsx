@@ -1,27 +1,50 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ModalWindow from '../components/ModalWindow';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import StyledTextBox from '../components/styles/TextBox.styled';
-import ResultContext from '../utils/createContext';
+import { MENU_ROUTE } from '../utils/routes';
 
 const Testing = () => {
-    const [isModalActive, setIsModalActive] = useState(true);
+    const [modal, setModal] = useState({isVisible: true, type: 'start'});
     const [result, setResult] = useState({date: null, accuracy: null, speed: null});
+    const navigate = useNavigate();
+
+    const startTesting = () => {
+        const text = document.querySelector('.text');
+
+        text.focus();
+        setModal({...modal, isVisible: false});
+    };
+
+    const leaveTestingPage = () => {
+        setResult({date: null, accuracy: null, speed: null});
+        setModal({...modal, isVisible: false});
+        navigate(MENU_ROUTE);
+    };
 
     return (
-        <ResultContext.Provider value={{ result, setResult }}>
-            <StyledTextBox className='testing'>
-                <Text isModalActive={isModalActive} activateModal={() => setIsModalActive(true)}/>
+        <StyledTextBox className='testing'>
+            <Text 
+                modal={modal} 
+                activateModal={() => setModal({isVisible: true, type: 'end'})}
+                setResult={setResult}
+            />
 
-                <div className='button-area'>
-                    <Button action={() => setIsModalActive(true)}>Заново</Button>
-                </div>
+            <div className='button-area'>
+                <Button action={() => setModal({isVisible: true, type: 'start'})}>Заново</Button>
+            </div>
 
-                <ModalWindow isVisible={isModalActive} closeModal={() => setIsModalActive(false)}/>
-            </StyledTextBox>
-        </ResultContext.Provider>
+            <ModalWindow
+                modal={modal}
+                closeModal={() => setModal({...modal, isVisible: false})}
+                startTesting={startTesting}
+                leaveTestingPage={leaveTestingPage}
+                result={result}
+            />
+        </StyledTextBox>
     );
 };
 

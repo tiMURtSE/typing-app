@@ -7,7 +7,7 @@ const replaceUncommonKeys = (text) => {
         '»': '"',
     };
 
-    const splittedText = text.split('');
+    const splittedText = text.trim().split('');
 
     for (let i = 0; i < splittedText.length; i++) {
         const charactersForReplace = Object.keys(replacement);

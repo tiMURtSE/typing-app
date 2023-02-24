@@ -1,43 +1,39 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import Button from './Button';
 import StyledModalWidnow from './styles/ModalWindow.styled';
-import ResultContext from '../utils/createContext';
-import { MENU_ROUTE } from '../utils/routes';
 import TestingStats from './TestingStats';
 
-const ModalWindow = ({ isVisible, closeModal }) => {
-    const { result, setResult } = useContext(ResultContext);
-    const navigate = useNavigate();
-    
-    const startTesting = () => {
-        const text = document.querySelector('.text');
+const ModalWindow = ({ modal, closeModal, startTesting, leaveTestingPage, result }) => {
+    const { type, isVisible } = modal;
+    let title;
+    let action;
 
-        text.focus();
-        closeModal();
-    };
-
-    const leaveTestingPage = () => {
-        setResult({date: null, accuracy: null, speed: null});
-        closeModal();
-        navigate(MENU_ROUTE);
-    };
+    switch (type) {
+        case 'start':
+            title = 'Готовы?';
+            action = startTesting;
+            break;
+        case 'end':
+            title = 'Результат:';
+            action = leaveTestingPage;
+            break;
+        case 'delete':
+            title = 'Тескт удален!'
+            action = closeModal;
+            break;
+    }
 
     if (!isVisible) return null;
 
     return (
         <StyledModalWidnow>
             <div className='inner-window'>
-                <span className='inner-window__label'>{result.date ? "Результат!" : "Готовы?"}</span>
+                {title}
 
-                {result.date ? <TestingStats result={result}/> : null}
-                
-                <Button 
-                    action={result.date ? leaveTestingPage : startTesting}
-                >
-                    OK
-                </Button>
+                {(type === 'end') ? <TestingStats result={result} /> : null}
+
+                <Button action={action}>OK</Button>
             </div>
         </StyledModalWidnow>
     );
