@@ -14,6 +14,8 @@ const keydownEventHandler = (args) => {
         currentCharacterElement.classList.add('completed');
         isFirstTimeWrongPress = true;
 
+        if (keyCode === 'Slash' || keyCode === 'Code') event.preventDefault();
+
         if (!currentCharacterElement.nextElementSibling) {
             return { isTestingOver: true, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
         }

@@ -5,6 +5,9 @@ const replaceUncommonKeys = (text) => {
         '–': '-',
         '«': '"',
         '»': '"',
+        '“': '"',
+        '”': '"',
+        '’': '\'',
     };
 
     const splittedText = text.trim().split('');
@@ -19,5 +22,12 @@ const replaceUncommonKeys = (text) => {
 
     return splittedText;
 };
+
+document.addEventListener('keydown', (event) => {
+    if (
+        event.code === 'Slash' ||
+        event.code === 'Quote'
+    ) event.preventDefault();
+});
 
 export default replaceUncommonKeys;
