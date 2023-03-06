@@ -1,8 +1,10 @@
 // потом обновить, чтобы добавлять только если входит в топ
 
-export const setResultInLocalStorage = (result) => {
+const setResultInStorage = (result) => {
     const highscores = JSON.parse(localStorage.getItem('highscores')) || [];
 
     highscores.push(result);
     localStorage.setItem('highscores', JSON.stringify(highscores));
 };
+
+export default setResultInStorage;

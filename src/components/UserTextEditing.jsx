@@ -2,9 +2,9 @@ import React from 'react';
 
 import Button from './Button';
 import StyledUserTextEditing from './styles/UserTextEditing.styled';
-import setUserTextInStorage from '../utils/setNewUserText';
+import CustomText from '../utils/CustomText';
 
-const UserTextEditing = ({ userTexts, setUserTexts, userTextModal, closeModal }) => {
+const UserTextEditing = ({ userTexts, setCustomTexts, userTextModal, closeModal }) => {
     const { isVisible, isEditing, editingTextId } = userTextModal;
 
     const getEditingText = () => {
@@ -17,32 +17,33 @@ const UserTextEditing = ({ userTexts, setUserTexts, userTextModal, closeModal })
         }
     };
 
-    const createUserText = () => {
+    const addCustomText = () => {
         const text = document.querySelector('.user-text-editing__textarea').value;
         const id = Date.now();
         const newText = {id, text};
 
         if (text) {
-            setUserTextInStorage(newText);
-            setUserTexts([...userTexts, newText]);
+            CustomText.addNewText(newText);
+            setCustomTexts([...userTexts, newText]);
         }
 
         closeModal();
     };
 
-    const changeText = () => {
+    const editText = () => {
         const text = document.querySelector('.user-text-editing__textarea').value;
         const newText = {id: editingTextId, text};
 
         if (text) {
-            setUserTexts([...userTexts.map(elem => {
+            setCustomTexts([...userTexts.map(elem => {
                 if (elem.id === editingTextId) {
                      return {id: editingTextId, text};
                 } else {
                      return elem;
                 }
              })]);
-            setUserTextInStorage(newText, editingTextId);
+             
+            CustomText.editText(newText, editingTextId);
         }
 
         closeModal();
@@ -61,7 +62,7 @@ const UserTextEditing = ({ userTexts, setUserTexts, userTextModal, closeModal })
 
                 <div className='user-text-editing__buttons'>
                     <Button
-                        action={isEditing ? changeText : createUserText}
+                        action={isEditing ? editText : addCustomText}
                         className='user-text-editing__button'
                         backgroundColor='#fff'
                     >

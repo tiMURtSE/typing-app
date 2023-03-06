@@ -4,7 +4,7 @@ import HighScoreItem from '../components/HighscoreItem';
 import StyledTextBox from '../components/styles/TextBox.styled';
 import StyledTableHead from '../components/styles/TableHead.styled';
 import sortHighscores from '../utils/sortHighscores';
-import removeFilter from '../utils/removeFilter';
+import removeRecordFilter from '../utils/removeRecordFilter';
 
 const Highscores = () => {
     const highscoresFromStorage = JSON.parse(localStorage.getItem('highscores')) || [];
@@ -18,7 +18,7 @@ const Highscores = () => {
             element = element.parentElement;
         }
 
-        removeFilter(element);
+        removeRecordFilter(element);
 
         const className = element.classList;
         const targetOfSort = element.textContent;

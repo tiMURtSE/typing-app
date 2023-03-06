@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import StyledText from './styles/Text.styled';
-import { setResultInLocalStorage } from '../utils/setData';
+import setResultInStorage from '../utils/setResultInStorage';
 import keydownEventHandler from '../utils/keydownEventHandler';
-import fetchTextForTesting from '../api/fetchTextForTesting';
+import getText from '../api/getText';
 import replaceUncommonKeys from '../utils/replaceUncommonKeys';
 import UserTextsContext from '../utils/createContext';
 
@@ -39,7 +39,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
             setResult(newResult);
         } else {
             setResult(newResult);
-            setResultInLocalStorage(newResult);
+            setResultInStorage(newResult);
         }
     };
 
@@ -78,7 +78,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
 
     const handleText = async () => {
         try {
-            const data = await fetchTextForTesting();
+            const data = await getText();
             const text = replaceUncommonKeys(data.text);
 
             setTextForTesting(text);

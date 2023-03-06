@@ -47,4 +47,11 @@ const isSpecialKey = (keyCode) => {
     );
 };
 
+document.addEventListener('keydown', (event) => {
+    if (
+        event.code === 'Slash' ||
+        event.code === 'Quote'
+    ) event.preventDefault();
+});
+
 export default keydownEventHandler;

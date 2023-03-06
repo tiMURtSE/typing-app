@@ -7,13 +7,13 @@ import StyledTextBox from '../components/styles/TextBox.styled';
 import UserText from '../components/UserText';
 import UserTextEditing from '../components/UserTextEditing';
 import UserTextsContext from '../utils/createContext';
-import deleteText from '../utils/deleteText';
+import CustomText from '../utils/CustomText';
 import { TESTING_ROUTE } from '../utils/routes';
 
 const Menu = () => {
     const userTextsFromStorage = JSON.parse(localStorage.getItem('user-texts')) || [];
-    const [userTexts, setUserTexts] = useState(userTextsFromStorage);
-    const [userTextModal, setUserTextModal] = useState({isVisible: false, isEditing: true, editingTextId: null});
+    const [userTexts, setCustomTexts] = useState(userTextsFromStorage);
+    const [userTextModal, setCustomTextModal] = useState({isVisible: false, isEditing: true, editingTextId: null});
     const [modal, setModal] = useState({isVisible: false, type: 'delete'});
     const { userText, setUserText } = useContext(UserTextsContext);
     const navigate = useNavigate();
@@ -25,12 +25,12 @@ const Menu = () => {
     };
 
     const openUserText = () => {
-        setUserTextModal({isVisible: true, isEditing: false, editingTextId: null});
+        setCustomTextModal({isVisible: true, isEditing: false, editingTextId: null});
     };
 
-    const deleteUserText = (textId) => {
-        setUserTexts(userTexts.filter(elem => elem.id !== textId));
-        deleteText(textId);
+    const deleteCustomText = (textId) => {
+        setCustomTexts(userTexts.filter(elem => elem.id !== textId));
+        CustomText.deleteText(textId);
         setModal({...modal, isVisible: true});
     };
 
@@ -41,8 +41,8 @@ const Menu = () => {
                     <UserText
                         text={elem.text}
                         startTesting={() => startTesting(elem.id)}
-                        editText={() => setUserTextModal({isVisible: true, isEditing: true, editingTextId: elem.id})}
-                        deleteText={() => deleteUserText(elem.id)}
+                        editText={() => setCustomTextModal({isVisible: true, isEditing: true, editingTextId: elem.id})}
+                        deleteText={() => deleteCustomText(elem.id)}
                         key={elem.id}
                     />    
                 )}
@@ -52,9 +52,9 @@ const Menu = () => {
 
             <UserTextEditing
                 userTexts={userTexts}
-                setUserTexts={setUserTexts}
+                setCustomTexts={setCustomTexts}
                 userTextModal={userTextModal}
-                closeModal={() => setUserTextModal({...userTextModal, isVisible: false})}
+                closeModal={() => setCustomTextModal({...userTextModal, isVisible: false})}
             />
             <ModalWindow modal={modal} closeModal={() => setModal({...modal, isVisible: false})}/>
         </StyledTextBox>

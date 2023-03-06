@@ -1,4 +1,5 @@
 const replaceUncommonKeys = (text) => {
+    const splittedText = text.trim().split('');
     const replacement = {
         'ё': 'е',
         '—': '-',
@@ -10,8 +11,6 @@ const replaceUncommonKeys = (text) => {
         '’': '\'',
     };
 
-    const splittedText = text.trim().split('');
-
     for (let i = 0; i < splittedText.length; i++) {
         const charactersForReplace = Object.keys(replacement);
         
@@ -22,12 +21,5 @@ const replaceUncommonKeys = (text) => {
 
     return splittedText;
 };
-
-document.addEventListener('keydown', (event) => {
-    if (
-        event.code === 'Slash' ||
-        event.code === 'Quote'
-    ) event.preventDefault();
-});
 
 export default replaceUncommonKeys;

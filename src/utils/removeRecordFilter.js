@@ -1,4 +1,4 @@
-const removeFilter = (element) => {
+const removeRecordFilter = (element) => {
     const headerTitleElements = document.querySelectorAll('.table__header-title');
 
     for (let i = 0; i < headerTitleElements.length; i++) {
@@ -8,4 +8,4 @@ const removeFilter = (element) => {
     }
 };
 
-export default removeFilter;
+export default removeRecordFilter;
