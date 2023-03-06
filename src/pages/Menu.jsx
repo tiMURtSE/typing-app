@@ -13,8 +13,12 @@ import { TESTING_ROUTE } from '../utils/routes';
 const Menu = () => {
     const userTextsFromStorage = JSON.parse(localStorage.getItem('user-texts')) || [];
     const [userTexts, setCustomTexts] = useState(userTextsFromStorage);
-    const [userTextModal, setCustomTextModal] = useState({isVisible: false, isEditing: true, editingTextId: null});
     const [modal, setModal] = useState({isVisible: false, type: 'delete'});
+    const [userTextModal, setCustomTextModal] = useState({
+        isVisible: false,
+        isEditing: true,
+        editingTextId: null
+    });
     const { userText, setUserText } = useContext(UserTextsContext);
     const navigate = useNavigate();
 
