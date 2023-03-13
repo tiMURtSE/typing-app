@@ -88,12 +88,20 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
     };
 
     useEffect(() => {
-        if (userText.id) {
-            setTextForTesting(replaceUncommonKeys(userText.text));
+        const { text: currentText } = JSON.parse(localStorage.getItem('current-text')) || [];
+
+        if (userText.id || currentText) {
+            setTextForTesting(replaceUncommonKeys(userText.text || currentText));
         } else {
             handleText();
         }
     }, []);
+
+    useEffect(() => {
+        console.log(1);
+
+        return () => console.log(2);
+    });
 
     return (
         <StyledText className='text' tabIndex={1} onKeyDown={sendEventToHandler}>

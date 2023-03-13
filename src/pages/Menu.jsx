@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalWindow from '../components/ModalWindow';
 
@@ -19,12 +19,14 @@ const Menu = () => {
         isEditing: true,
         editingTextId: null
     });
-    const { userText, setUserText } = useContext(UserTextsContext);
+    const { setUserText } = useContext(UserTextsContext);
     const navigate = useNavigate();
 
     const startTesting = (textId) => {
         const text = userTexts.filter(elem => elem.id === textId);
+
         setUserText(...text);
+        localStorage.setItem('current-text', JSON.stringify(...text));
         navigate(TESTING_ROUTE);
     };
 
@@ -37,6 +39,10 @@ const Menu = () => {
         CustomText.deleteText(textId);
         setModal({...modal, isVisible: true});
     };
+
+    useEffect(() => {
+        localStorage.removeItem('current-text');
+    }, []);
 
     return (
         <StyledTextBox>

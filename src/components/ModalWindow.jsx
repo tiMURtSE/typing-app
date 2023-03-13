@@ -22,6 +22,8 @@ const ModalWindow = ({ modal, closeModal, startTesting, leaveTestingPage, result
             title = 'Тескт удален!'
             action = closeModal;
             break;
+        default:
+            break;
     }
 
     if (!isVisible) return null;

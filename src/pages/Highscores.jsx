@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import HighScoreItem from '../components/HighscoreItem';
 import StyledTextBox from '../components/styles/TextBox.styled';
@@ -39,6 +39,10 @@ const Highscores = () => {
             element.classList.add('descending-order');
         }
     };
+
+    useEffect(() => {
+        localStorage.removeItem('current-text');
+    }, []);
 
     return (
         <StyledTextBox>
