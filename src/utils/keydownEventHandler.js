@@ -1,35 +1,55 @@
-const keydownEventHandler = (args) => {
-    let { event, timeStartedAt, wrongPressCount, isFirstTimeWrongPress } = args;
+import { TestParemeters } from "./TestParameters";
+
+const keydownEventHandler = (event) => {
+    // let { event, timeStartedAt, wrongPressCount, isFirstTimeWrongPress } = args;
     const key = event.key;
     const currentCharacterElement = document.querySelector('.curr');
     const keyCode = event.code;
+    // let testParemeters = TestParemeters.time;
 
-    if (isSpecialKey(keyCode)) return { isTestingOver: false, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
+    // if (isSpecialKey(keyCode)) return { isTestingOver: false, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
+    if (isSpecialKey(keyCode)) return;
 
-    if (!timeStartedAt) timeStartedAt = Date.now();
+    if (!TestParemeters.time) {
+        // timeStartedAt = Date.now()
+
+        TestParemeters.setTime();
+    };
     
+    console.log(TestParemeters);
+
     if (key === currentCharacterElement.textContent) {
         currentCharacterElement.classList.remove('curr');
         currentCharacterElement.classList.remove('wrong');
         currentCharacterElement.classList.add('completed');
-        isFirstTimeWrongPress = true;
+        TestParemeters.isFirstTimeWrongPress = true;
 
         if (keyCode === 'Slash' || keyCode === 'Code') event.preventDefault();
 
         if (!currentCharacterElement.nextElementSibling) {
-            return { isTestingOver: true, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
+            TestParemeters.stopTime();
+            return {
+                isEnd: true,
+                result: {
+                    time: TestParemeters.time,
+                    mistakeCounter: TestParemeters.mistakeCounter
+                }
+            };
         }
 
         currentCharacterElement.nextElementSibling.classList.add('curr');
     } else {
-        if (isFirstTimeWrongPress) {
+        if (TestParemeters.isFirstTimeWrongPress) {
             currentCharacterElement.classList.add('wrong');
-            wrongPressCount++;
-            isFirstTimeWrongPress = false;
+            TestParemeters.mistakeCounter++;
+            TestParemeters.isFirstTimeWrongPress = false;
         }
     }
 
-    return { isTestingOver: false, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
+    return {
+        isEnd: false,
+        result: null
+    };
 };
 
 const isSpecialKey = (keyCode) => {
