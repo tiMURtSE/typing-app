@@ -1,55 +1,50 @@
 import { TestParemeters } from "./TestParameters";
 
-const keydownEventHandler = (event) => {
-    // let { event, timeStartedAt, wrongPressCount, isFirstTimeWrongPress } = args;
-    const key = event.key;
-    const currentCharacterElement = document.querySelector('.curr');
-    const keyCode = event.code;
-    // let testParemeters = TestParemeters.time;
+class KeydownEventHandler {
+    static timeStartedAt = null;
+    static mistakeCounter = 0;
+    static previousCharacter = null;
 
-    // if (isSpecialKey(keyCode)) return { isTestingOver: false, timeStartedAt, wrongPressCount, isFirstTimeWrongPress };
-    if (isSpecialKey(keyCode)) return;
+    static retur(event) {
+        const key = event.key;
+        const keyCode = event.code;
+        const currentCharacter = document.querySelector('.curr');
+        const nextCharacter = currentCharacter.nextElementSibling;
+        
+        if (isSpecialKey(keyCode)) return;
+        if (!this.timeStartedAt) this.timeStartedAt = Date.now();
+        
+        if (currentCharacter.textContent === key) {
+            
+            currentCharacter.classList.remove('curr');
+            currentCharacter.classList.remove('wrong');
+            currentCharacter.classList.add('completed');
 
-    if (!TestParemeters.time) {
-        // timeStartedAt = Date.now()
+            if (!nextCharacter) {
+                const r = {...this};
+                this.timeStartedAt = null;
+                this.mistakeCounter = 0;
+                this.previousCharacter = null;
+                return r;
+            } else {
+                nextCharacter.classList.add('curr');
+            }
+        } else {
+            if (currentCharacter !== this.previousCharacter) {
+                currentCharacter.classList.add('wrong');
+                this.mistakeCounter++;
+                this.previousCharacter = currentCharacter;
+            }
+        }
 
-        TestParemeters.setTime();
+        console.log(this.mistakeCounter)
     };
-    
-    console.log(TestParemeters);
 
-    if (key === currentCharacterElement.textContent) {
-        currentCharacterElement.classList.remove('curr');
-        currentCharacterElement.classList.remove('wrong');
-        currentCharacterElement.classList.add('completed');
-        TestParemeters.isFirstTimeWrongPress = true;
-
-        if (keyCode === 'Slash' || keyCode === 'Code') event.preventDefault();
-
-        if (!currentCharacterElement.nextElementSibling) {
-            TestParemeters.stopTime();
-            return {
-                isEnd: true,
-                result: {
-                    time: TestParemeters.time,
-                    mistakeCounter: TestParemeters.mistakeCounter
-                }
-            };
-        }
-
-        currentCharacterElement.nextElementSibling.classList.add('curr');
-    } else {
-        if (TestParemeters.isFirstTimeWrongPress) {
-            currentCharacterElement.classList.add('wrong');
-            TestParemeters.mistakeCounter++;
-            TestParemeters.isFirstTimeWrongPress = false;
-        }
+    static reset() {
+        this.timeStartedAt = null;
+        this.mistakeCounter = 0;
+        this.previousCharacter = null;
     }
-
-    return {
-        isEnd: false,
-        result: null
-    };
 };
 
 const isSpecialKey = (keyCode) => {
@@ -67,11 +62,4 @@ const isSpecialKey = (keyCode) => {
     );
 };
 
-document.addEventListener('keydown', (event) => {
-    if (
-        event.code === 'Slash' ||
-        event.code === 'Quote'
-    ) event.preventDefault();
-});
-
-export default keydownEventHandler;
+export default KeydownEventHandler;

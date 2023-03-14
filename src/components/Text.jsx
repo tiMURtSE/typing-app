@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import StyledText from './styles/Text.styled';
 import setResultInStorage from '../utils/setResultInStorage';
-import keydownEventHandler from '../utils/keydownEventHandler';
+import KeydownEventHandler from '../utils/KeydownEventHandler';
 import getText from '../api/getText';
 import replaceUncommonKeys from '../utils/replaceUncommonKeys';
 import UserTextsContext from '../utils/createContext';
@@ -23,10 +23,10 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
     };
 
     const calculateResults = (result) => {
-        const timeInMinutes = ((Date.now() - result.time) / 1000 / 60).toFixed(2);
+        const timeInMinutes = ((Date.now() - result.timeStartedAt) / 1000 / 60).toFixed(2);
         const testingCompletionDate = new Date().toLocaleString();
         const characterCount = textForTesting.length;
-        const rateOfCorrectPress = Number(100 - (result.mistakesCounter / characterCount * 100)).toFixed(2);
+        const rateOfCorrectPress = Number(100 - (result.mistakeCounter / characterCount * 100)).toFixed(2);
         const charactersPerMinute = Math.round(characterCount / timeInMinutes);
         const newResult = {
             date: testingCompletionDate,
@@ -34,13 +34,15 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
             speed: charactersPerMinute,
         };
 
-        if (userText.id) {
-            setUserText({});
-            setResult(newResult);
-        } else {
-            setResult(newResult);
-            setResultInStorage(newResult);
-        }
+        console.log(newResult)
+
+        // if (userText.id) {
+        //     setUserText({});
+        //     setResult(newResult);
+        // } else {
+        //     setResult(newResult);
+        //     setResultInStorage(newResult);
+        // }
     };
 
     const sendEventToHandler = (event) => {
@@ -52,14 +54,14 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
         //     wrongPressCount,
         //     isFirstTimeWrongPress
         // });
-        const data = keydownEventHandler(event);
+        const result = KeydownEventHandler.retur(event);
 
         // const isTestingOver = testingParams.isTestingOver;
         // timeStartedAt = testingParams.timeStartedAt;
         // wrongPressCount = testingParams.wrongPressCount;
         // isFirstTimeWrongPress = testingParams.isFirstTimeWrongPress;
 
-        if (data.isEnd) completeTesting(data.result);
+        if (result) completeTesting(result);
     };
 
     const createText = (character, index) => {
