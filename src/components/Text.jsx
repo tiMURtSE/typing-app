@@ -47,7 +47,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
         if (isModalActive) return;
 
         const testingParams = keydownEventHandler({
-            event, 
+            event,
             timeStartedAt,
             wrongPressCount,
             isFirstTimeWrongPress
@@ -96,12 +96,6 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
             handleText();
         }
     }, []);
-
-    useEffect(() => {
-        console.log(1);
-
-        return () => console.log(2);
-    });
 
     return (
         <StyledText className='text' tabIndex={1} onKeyDown={sendEventToHandler}>

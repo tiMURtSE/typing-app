@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import background from '../assets/icons8-клавиатура-750.png';
+// import background from '../assets/icons8-клавиатура-750.png';
 
 import StyledNavbar from './styles/Navbar.styled';
 

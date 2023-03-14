@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ModalWindow from '../components/ModalWindow';
-
 import NewUserTextButton from '../components/NewUserTextButton';
 import StyledTextBox from '../components/styles/TextBox.styled';
 import UserText from '../components/UserText';
