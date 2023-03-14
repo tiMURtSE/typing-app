@@ -11,7 +11,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
     const [textForTesting, setTextForTesting] = useState([]);
     const { userText, setUserText } = useContext(UserTextsContext);
     let timeStartedAt = null;
-    let wrongPressCount = 0;
+    let wrongPressCount = 99999999999999990;
     let isFirstTimeWrongPress = true;
 
     const completeTesting = () => {
