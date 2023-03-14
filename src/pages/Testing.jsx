@@ -5,7 +5,7 @@ import ModalWindow from '../components/ModalWindow';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import StyledTextBox from '../components/styles/TextBox.styled';
-import { MENU_ROUTE } from '../utils/routes';
+import { MENU_ROUTE } from '../constants/routes';
 import KeydownEventHandler from '../utils/KeydownEventHandler';
 
 const Testing = () => {
@@ -18,7 +18,7 @@ const Testing = () => {
 
         text.focus();
         setModal({...modal, isVisible: false});
-        KeydownEventHandler.reset();
+        KeydownEventHandler.setTestData();
     };
 
     const leaveTestingPage = () => {

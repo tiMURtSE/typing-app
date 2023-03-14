@@ -7,7 +7,7 @@ import UserText from '../components/UserText';
 import UserTextEditing from '../components/UserTextEditing';
 import UserTextsContext from '../utils/createContext';
 import CustomText from '../utils/CustomText';
-import { TESTING_ROUTE } from '../utils/routes';
+import { TESTING_ROUTE } from '../constants/routes';
 
 const Menu = () => {
     const userTextsFromStorage = JSON.parse(localStorage.getItem('user-texts')) || [];

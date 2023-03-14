@@ -1,18 +1,19 @@
-import { TestParemeters } from "./TestParameters";
-
 class KeydownEventHandler {
-    static timeStartedAt = null;
-    static mistakeCounter = 0;
-    static previousCharacter = null;
+    static testData = {
+        timeStartedAt: null,
+        mistakeCounter: 0,
+        previousCharacter: null
+    }
 
-    static retur(event) {
+    static testHandler(event) {
+        const { timeStartedAt } = this.testData;
         const key = event.key;
         const keyCode = event.code;
         const currentCharacter = document.querySelector('.curr');
         const nextCharacter = currentCharacter.nextElementSibling;
-        
+
         if (isSpecialKey(keyCode)) return;
-        if (!this.timeStartedAt) this.timeStartedAt = Date.now();
+        if (!timeStartedAt) this.testData.timeStartedAt = Date.now();
         
         if (currentCharacter.textContent === key) {
             
@@ -21,29 +22,28 @@ class KeydownEventHandler {
             currentCharacter.classList.add('completed');
 
             if (!nextCharacter) {
-                const r = {...this};
-                this.timeStartedAt = null;
-                this.mistakeCounter = 0;
-                this.previousCharacter = null;
-                return r;
+                const finalTestData = {...this.testData};
+                
+                this.setTestData();
+                return finalTestData;
             } else {
                 nextCharacter.classList.add('curr');
             }
         } else {
-            if (currentCharacter !== this.previousCharacter) {
+            if (currentCharacter !== this.testData.previousCharacter) {
                 currentCharacter.classList.add('wrong');
-                this.mistakeCounter++;
-                this.previousCharacter = currentCharacter;
+                this.testData.mistakeCounter++;
+                this.testData.previousCharacter = currentCharacter;
             }
         }
-
-        console.log(this.mistakeCounter)
     };
 
-    static reset() {
-        this.timeStartedAt = null;
-        this.mistakeCounter = 0;
-        this.previousCharacter = null;
+    static setTestData() {
+        this.testData = {
+            timeStartedAt: null,
+            mistakeCounter: 0,
+            previousCharacter: null
+        }
     }
 };
 

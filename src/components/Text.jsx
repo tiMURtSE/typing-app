@@ -6,62 +6,37 @@ import KeydownEventHandler from '../utils/KeydownEventHandler';
 import getText from '../api/getText';
 import replaceUncommonKeys from '../utils/replaceUncommonKeys';
 import UserTextsContext from '../utils/createContext';
+import calculateResult from '../utils/calculateResult';
 
 const Text = ({ isModalActive, activateModal, setResult }) => {
-    const [textForTesting, setTextForTesting] = useState([]);
+    const [textForTest, setTextForTest] = useState([]);
     const { userText, setUserText } = useContext(UserTextsContext);
-    // let timeStartedAt = null;
-    // let wrongPressCount = 0;
-    // let isFirstTimeWrongPress = true;
 
-    const completeTesting = (result) => {
+    const completeTest = (finalTestData) => {
         const textElement = document.querySelector('.text');
+        const result = calculateResult(finalTestData, textForTest.length);
+        const isTestingCustomText = (userText.id) ? true : false;
+
+        if (isTestingCustomText) {
+            setUserText({});
+            setResult(result);
+        } else {
+            setResult(result);
+            setResultInStorage(result);
+        }
 
         textElement.blur();
         activateModal();
-        calculateResults(result);
-    };
-
-    const calculateResults = (result) => {
-        const timeInMinutes = ((Date.now() - result.timeStartedAt) / 1000 / 60).toFixed(2);
-        const testingCompletionDate = new Date().toLocaleString();
-        const characterCount = textForTesting.length;
-        const rateOfCorrectPress = Number(100 - (result.mistakeCounter / characterCount * 100)).toFixed(2);
-        const charactersPerMinute = Math.round(characterCount / timeInMinutes);
-        const newResult = {
-            date: testingCompletionDate,
-            accuracy: rateOfCorrectPress,
-            speed: charactersPerMinute,
-        };
-
-        console.log(newResult)
-
-        // if (userText.id) {
-        //     setUserText({});
-        //     setResult(newResult);
-        // } else {
-        //     setResult(newResult);
-        //     setResultInStorage(newResult);
-        // }
     };
 
     const sendEventToHandler = (event) => {
-        if (isModalActive) return;
+        if (isModalActive) {
+            return;
+        } else {
+            const finalTestData = KeydownEventHandler.testHandler(event);
 
-        // const testingParams = keydownEventHandler({
-        //     event,
-        //     timeStartedAt,
-        //     wrongPressCount,
-        //     isFirstTimeWrongPress
-        // });
-        const result = KeydownEventHandler.retur(event);
-
-        // const isTestingOver = testingParams.isTestingOver;
-        // timeStartedAt = testingParams.timeStartedAt;
-        // wrongPressCount = testingParams.wrongPressCount;
-        // isFirstTimeWrongPress = testingParams.isFirstTimeWrongPress;
-
-        if (result) completeTesting(result);
+            if (finalTestData) completeTest(finalTestData);
+        }
     };
 
     const createText = (character, index) => {
@@ -84,7 +59,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
             const data = await getText();
             const text = replaceUncommonKeys(data.text);
 
-            setTextForTesting(text);
+            setTextForTest(text);
         } catch (error) {
             console.log(error.message)
         }
@@ -94,7 +69,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
         const { text: currentText } = JSON.parse(localStorage.getItem('current-text')) || [];
 
         if (userText.id || currentText) {
-            setTextForTesting(replaceUncommonKeys(userText.text || currentText));
+            setTextForTest(replaceUncommonKeys(userText.text || currentText));
         } else {
             handleText();
         }
@@ -102,7 +77,7 @@ const Text = ({ isModalActive, activateModal, setResult }) => {
 
     return (
         <StyledText className='text' tabIndex={1} onKeyDown={sendEventToHandler}>
-            {textForTesting.map(createText)}
+            {textForTest.map(createText)}
         </StyledText>
     );
 };
